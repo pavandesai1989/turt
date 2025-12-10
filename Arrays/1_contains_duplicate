@@ -39,17 +39,53 @@ space :o(max+1)
 
 pro is size of array is more extra array 
 
-***********
+**************************
 Brute force : 0(n*n)
 
+class Solution {
+public:
+    bool containsDuplicate(vector<int>& nums) 
+    {
+        int n=nums.size();
+        for(int i=0;i<n;i++)
+        {
+            for(int j=i+1;j<n;j++)
+            {
+                if(nums[i] == nums[j])
+                    return true;
+            }
+        }
+        return false;
+        
+    }
+};
+
+time : O(n*n)
+space : O(1)
 
 
 
-
-
-
+******************************
 sorting : o(n*log n)
+
+class Solution {
+public:
+    bool containsDuplicate(vector<int>& nums) 
+    {
+        sort(nums.begin(),nums.end()); //sorting o(n*logn)
+        int n=nums.size();
+        for(int i=0;i<n-1;i++)  //o(n)
+        {
+            if(nums[i] == nums[i+1])
+                return true;
+        }
+        return false;
+    }
+};
+
+total time : o(n) + o(n*logn) = o(n*logn)
 **************
+best optimal solution hashing 
 
 
 
