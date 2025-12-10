@@ -1,0 +1,48 @@
+https://leetcode.com/problems/valid-anagram/submissions/1852229481/
+
+class Solution {
+public:
+    bool isAnagram(string s, string t) 
+    {
+        vector<int> freq(26,0); //why because ascii of a is 97 ,98,99 till 127. if we subtract -'a' from each then we need only arr of size 26
+
+        for(auto ele:s) //increment count of each char of s in freq array
+        {
+            freq[ele-'a']++;
+        }
+
+        for(auto ele:t) //decrement count of each char of t in freq array 
+        {
+            freq[ele-'a']--;
+        }
+
+        for(auto ele:freq)
+        {
+            if(ele != 0)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+};
+
+1️⃣ Time Complexity
+
+Loop through s → O(s)
+
+Loop through t → O(t)   Total is : o(s) + o(t)
+
+Loop through freq (size 26) → O(26) ≈ O(1)
+
+✅ Total: O(n)
+
+Where n = s.size() = t.size().
+
+2️⃣ Space Complexity
+
+freq array of size 26 → O(26) → O(1)
+
+No other extra space proportional to n.
+
+✅ Total: O(1)
