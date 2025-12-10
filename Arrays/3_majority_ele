@@ -1,0 +1,40 @@
+https://leetcode.com/problems/majority-element/description/?source=submission-ac
+
+brute force : using 2 loops 
+Time : o(n*n)
+
+
+
+using sorting and finding mid :
+time : o(n*logn)
+
+
+
+optimal :
+time : o(n)
+
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) 
+    {
+        int majorele = 0;
+        int count = 0;
+
+        for(auto ele:nums)
+        {
+            if(majorele == ele) //increment count
+            {
+                count++;
+            }
+            else if(count == 0) //change major ele if count is zero
+            {
+                majorele = ele;
+            }
+            else //reduce count if ele is other than majorele
+            {
+                count--;
+            }
+        }
+        return majorele;
+    }
+};
