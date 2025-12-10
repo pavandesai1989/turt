@@ -1,0 +1,61 @@
+https://leetcode.com/problems/contains-duplicate/description/
+
+*****using the count approach****
+class Solution {
+public:
+    bool containsDuplicate(vector<int>& nums) 
+    {
+        int maxele = 0;
+        for(auto ele:nums) //get max number o(n)
+        {
+            maxele = max(maxele,ele);
+        }
+
+        std::cout<<"max is "<<maxele<<endl;
+
+        //create vector of maxele+1 size
+        vector<int> ans(maxele+1,0);
+        for(auto ele:ans)
+        {
+            std::cout<<ele<<" ";
+        }
+
+        for(auto ele:nums) //catch is go to ele ka index and you have to iterate thro nums
+        {
+            if(ans[ele] == 1)
+            {
+                return true;
+            }
+            std::cout<<"adding 1 at idx "<<ele<<endl;
+            ans[ele] = 1;
+        }
+        return false;
+    }
+};
+
+***** works only for the positive numbers 
+Time : o(N)
+space :o(max+1) 
+
+pro is size of array is more extra array 
+
+***********
+Brute force : 0(n*n)
+
+
+
+
+
+
+
+sorting : o(n*log n)
+**************
+
+
+
+
+
+
+
+
+
