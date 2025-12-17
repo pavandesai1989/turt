@@ -1,1 +1,130 @@
 https://leetcode.com/problems/majority-element-ii/description/
+
+***brute force*****
+class Solution {
+public:
+    vector<int> majorityElement(vector<int>& nums) 
+    {
+        vector<int> res;
+        int n=nums.size();
+        for(int i=0;i<n;++i)
+        {
+            int cnt=1;
+            if(res.empty() || res[0]!=nums[i])
+            {
+                
+                for(int j=i+1;j<n;++j)
+                {
+                   if(nums[j] == nums[i])
+                   {
+                    cnt++;
+                   }
+                }
+
+                if(cnt>n/3)
+                {
+                    res.push_back(nums[i]);
+                }
+            }
+
+            if(res.size() == 2) break;
+        }
+        return res;
+    }
+};
+
+NOTE:
+why we are comparing res[0] always? 
+
+There can be at most 2 majority elements (> n/3)
+
+So:
+
+If res is not empty
+
+And current element is already equal to res[0]
+→ skip it
+
+Once res.size() == 2, loop breaks anyway.
+
+Time : O(n*n)
+space : O(1)
+
+******************* better ********************
+we have to remember . use hashing 
+
+class Solution {
+public:
+    vector<int> majorityElement(vector<int>& nums) 
+    {
+        //we need to remember the freq use hashing
+        vector<int> res;
+        int n=nums.size();
+        unordered_map<int,int> umap;
+
+        int mini = (int) n/3 + 1;
+
+        for(int i=0;i<n;++i)
+        {
+           umap[nums[i]]++;
+
+           if(umap[nums[i]] == mini)
+           {
+            res.push_back(nums[i]);
+           }
+
+           if(res.size() == 2) break;//max only 2 ele can be there with more than n/3
+        }
+        return res;
+    }
+};
+
+
+***********optimal****** remove space 
+class Solution {
+public:
+    vector<int> majorityElement(vector<int>& nums) 
+    {
+        vector<int> res;
+        int n=nums.size();
+
+        //at given point max 2 ele can be in result
+        int ele1=0,cnt1=0;
+        int ele2=0,cnt2=0;
+
+        for(int i=0;i<n;++i)
+        {
+            if(cnt1 == 0 && nums[i]!=ele2)
+            {
+                cnt1=1;
+                ele1 = nums[i];
+            }
+            else if(cnt2==0 && nums[i]!=ele1)
+            {
+                cnt2=1;
+                ele2 = nums[i];
+            }
+            else if(nums[i]==ele1) cnt1++;
+            else if(nums[i]==ele2) cnt2++;
+            else
+            {
+                cnt1--;cnt2--;
+            }
+        }
+
+        //validate result 
+        int mini = (int)n/3+1;
+        cnt1=0,cnt2=0;
+
+        for(int i=0;i<n;++i)
+        {
+            if(nums[i]==ele1) cnt1++;
+            else if(nums[i]==ele2) cnt2++;
+        }
+
+        if(cnt1 >=mini ) res.push_back(ele1);
+        if(cnt2 >= mini) res.push_back(ele2);
+
+        return res;
+    }
+};
