@@ -53,31 +53,30 @@ space : O(1)
 ******************* better ********************
 we have to remember . use hashing 
 
-class Solution {
-public:
-    vector<int> majorityElement(vector<int>& nums) 
+#include <bits/stdc++.h>
+
+vector<int> majorityElementII(vector<int> &arr)
+{ 
+    vector<int> res;
+    int n=arr.size();
+
+    unordered_map<int,int> mapp;
+
+    int mini = (int)n/3 + 1;
+
+    for(int i=0;i<n;++i)
     {
-        //we need to remember the freq use hashing
-        vector<int> res;
-        int n=nums.size();
-        unordered_map<int,int> umap;
+        //add count
+        mapp[arr[i]]++;
 
-        int mini = (int) n/3 + 1;
-
-        for(int i=0;i<n;++i)
+        if((res.empty() || arr[i] != res[0]) && mapp[arr[i]] >= mini)//v imp avoid duplicates
         {
-           umap[nums[i]]++;
-
-           if(umap[nums[i]] == mini)
-           {
-            res.push_back(nums[i]);
-           }
-
-           if(res.size() == 2) break;//max only 2 ele can be there with more than n/3
+            res.push_back(arr[i]);
         }
-        return res;
+        if(res.size() == 2) break;//max 2 ele can be in result
     }
-};
+    return res;
+}
 
 
 ***********optimal****** remove space 
