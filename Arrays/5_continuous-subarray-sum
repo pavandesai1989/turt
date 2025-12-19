@@ -1,0 +1,55 @@
+//https://leetcode.com/problems/continuous-subarray-sum/description/
+
+brute force
+class Solution {
+public:
+    bool checkSubarraySum(vector<int>& nums, int k) 
+    {
+        int n=nums.size();
+        for(int i=0;i<n;i++)
+        {
+            int sum = nums[i];
+            for(int j=i+1;j<n;j++)
+            {
+                sum += nums[j];
+                if(sum%k == 0) return true;
+            }
+        }
+        return false;
+    }
+};
+
+class Solution {
+public:
+    bool checkSubarraySum(vector<int>& nums, int k) 
+    {
+        //concept if 3 % 6 -- 3 then if you add any num which is multiple of k to 3 you get remainder 3 only
+        int n = nums.size();
+        unordered_map<int,int> mp;
+        int sum=0;
+
+        for(int i=0;i<n;i++)
+        {
+            sum += nums[i];
+
+            //get remainder
+            int remain = sum % k;
+
+            if (remain == 0 && i >= 1) //*****imp
+                return true;
+
+            //check if its in map
+            if(mp.find(remain) != mp.end())
+            {
+                //check if size of array is 2 
+                if(i-mp[remain] >=2) return true;
+            }
+            else
+            {
+                //add to map
+                mp[remain] = i;
+            }
+        }
+        return false;
+    }
+};
