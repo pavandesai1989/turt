@@ -1,0 +1,40 @@
+https://leetcode.com/problems/longest-repeating-character-replacement/description/
+
+class Solution {
+public:
+    int characterReplacement(string s, int k) 
+    {
+        //no of chars can be replaced : len(substring)-maxfreq 
+        //if above is > k then reduce len of windows
+        int i=0;
+        int j=0;
+        unordered_map<int,int> mp;
+        int n=s.length();
+
+        int maxfreq=0;
+        int ans=0;
+
+        while(j<n)
+        {
+            //add to map
+            mp[s[j]]++;
+
+            //get max freq
+            maxfreq = max(maxfreq,mp[s[j]]);
+
+            //if len is grater then k
+            if(j-i+1-maxfreq > k)
+            {
+                //reduce freq of left 
+                mp[s[i]]--;
+                i++;
+            }
+
+            //update result
+            ans = max(ans,j-i+1);
+
+            j++;
+        }
+        return ans;
+    }
+};
