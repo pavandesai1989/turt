@@ -1,0 +1,30 @@
+https://leetcode.com/problems/longest-continuous-increasing-subsequence/description/
+
+class Solution {
+public:
+    int findLengthOfLCIS(vector<int>& nums) 
+    {
+        int res=1;
+        int maxSize = 1;
+        int j=1;
+        int comp = nums[0];
+        int n=nums.size();
+
+        while(j<n)
+        {
+            if(nums[j]>comp)
+            {
+                res++;
+                comp = nums[j];
+                maxSize = max(maxSize,res);
+            }
+            else
+            {
+                res=1;//initialise to 1
+                comp=nums[j];
+            }
+            j++;
+        }
+        return maxSize;
+    }
+};
