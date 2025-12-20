@@ -1,0 +1,53 @@
+https://leetcode.com/problems/permutation-in-string/description/
+
+class Solution {
+public:
+    bool checkInclusion(string s1, string s2) 
+    {
+        int m = s1.length();
+        int n = s2.length();
+
+        //as we need to find permutation need to store the char counts. use maps
+        unordered_map<int,int> m1; //stores char of s1
+        unordered_map<int,int> m2; //stores char of s2
+
+        //store all char of s1 in m1
+        for(auto ele:s1)
+        {
+            m1[ele]++;
+        }
+
+        //we need to compare maps when we have length of s1. to find length we need i and j
+        int i=0;
+        int j=0;
+
+        //we need to find out if s1 is in s2. so iterate through n
+        while(j<n)
+        {
+            //add freq in m2
+            m2[s2[j]]++;
+
+            //if length exceeds length of s1. reduce count of char of i from s2
+            if(j-i+1 > m)
+            {
+                //reduce length  of window
+               m2[s2[i]]--;
+
+               //if o erase 
+               if(m2[s2[i]]==0)
+               {
+                m2.erase(s2[i]);
+               }
+               i++;
+            }
+
+            //when length same check if both maps same 
+            if(j-i+1 == m)
+            {
+                if(m1 == m2) return true;
+            }
+            j++;
+        }
+        return false;
+    }
+};
