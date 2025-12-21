@@ -1,0 +1,50 @@
+https://www.geeksforgeeks.org/problems/count-occurences-of-anagrams5839/1
+// User function template for C++
+#include<unordered_map>
+class Solution {
+  public:
+    bool checkallzeros(unordered_map<char,int>& mpp)
+    {
+        for(auto ele:mpp)
+        {
+            if(ele.second !=0)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+    int search(string &pat, string &txt) 
+    {
+        int res = 0;
+        int lp=pat.length();
+        int lt=txt.length();
+        
+        //store char of ele of pat in map
+        unordered_map<char,int> mpp;
+        for(auto ele:pat) mpp[ele]++;
+        
+        int i=0,j=0;
+        while(j<lt)
+        {
+          //reduce char cnt in mp indicating we got char 
+          mpp[txt[j]]--;
+          
+          //check for len
+          if(j-i+1 == lp)
+          {
+              if(checkallzeros(mpp))
+              {
+                  res++;
+              }
+              
+              //add back freq
+              mpp[txt[i]]++;
+              
+              i++;
+          }
+          j++;
+        }
+        return res;
+    }
+};
