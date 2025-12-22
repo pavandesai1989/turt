@@ -1,0 +1,84 @@
+https://leetcode.com/problems/subarray-sum-equals-k/description/
+
+***bruteforce***
+class Solution {
+public:
+    int subarraySum(vector<int>& nums, int k) 
+    {
+        int res = 0;
+        int n = nums.size();
+
+        for(int i=0;i<n;++i)
+        {
+            int sum = 0;
+            for(int j=i;j<n;++j)
+            {
+                  sum += nums[j];
+                  if(sum == k)
+                  {
+                    res++;
+                  }
+            }
+        }
+        return res;
+    }
+};
+
+*****optimal*****
+Use concept of prefix sum and hashing to store the prefix sums
+
+Algo:
+1. Initialize
+
+  prefixSum = 0
+  
+  count = 0
+  
+  HashMap freq to store frequency of prefix sums
+
+2. Insert base case
+
+  freq[0] = 1
+  (handles subarrays starting at index 0)
+
+3.Traverse the array:
+
+  Add current element to prefixSum
+  
+  Check if (prefixSum − k) exists in freq
+  
+  If yes, add its frequency to count
+  
+  Increment freq[prefixSum]
+
+4. Return count
+
+
+class Solution {
+public:
+    int subarraySum(vector<int>& nums, int k)
+    {
+        int prefixSum = 0;
+        int count = 0;
+        int n=nums.size();
+
+        unordered_map<int,int> freq; //store the prefix sum
+
+        for(int i=0;i<n;++i)
+        {
+            //add ele to sum
+            prefixSum += nums[i];
+            if(prefixSum == k) count++; //imp check 
+
+            //check if prefixSum-k exists in map
+            if(freq.find(prefixSum-k) != freq.end())
+            {
+                count += freq[prefixSum-k]; //imp
+            }
+
+            //add prefixSum to map
+            freq[prefixSum]++;
+        } 
+        return count;
+    }
+};
