@@ -1,5 +1,36 @@
 https://leetcode.com/problems/maximum-number-of-vowels-in-a-substring-of-given-length/description/ 
 
+Algorithm Steps (Mental Model)
+
+Two pointers:
+
+i → window start
+
+j → window end
+
+Expand window by moving j
+
+If s[j] is a vowel → increment cnt
+
+When window size == k:
+
+Update answer → maxLen = max(maxLen, cnt)
+
+Before sliding:
+
+If s[i] is a vowel → decrement cnt
+
+Move i forward
+
+Continue until j reaches end
+
+Why Sliding Window?
+
+Avoid recomputing vowels for every substring
+
+Each character is added once and removed once
+
+
 class Solution {
 public:
     bool isVowel(char ch)
