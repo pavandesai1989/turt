@@ -1,0 +1,46 @@
+//on the same concept of sliding window max
+
+//https://www.naukri.com/code360/problems/first-negative-integer-in-every-window-of-size-k_1164406?leftPanelTabValue=PROBLEM
+
+#include <bits/stdc++.h> 
+vector<int> firstNegativeInteger(vector<int> &arr, int k, int n)
+{
+   vector<int> res;
+   int i=0,j=0;
+   deque<int> q;
+
+   while(j<n)
+   {
+      //if curr ele is -ve push to q
+      if(arr[j]<0)
+      {
+          q.push_back(arr[j]);
+      }
+
+      //if len is equal to k update res and remove prev wnd -ve eles
+      if(j-i+1 == k)
+      {
+         //update res
+         if(!q.empty())
+         {
+             res.push_back(q.front());
+         }
+         else
+         {
+             res.push_back(0);
+         }
+
+         //remove -ve ele from prev window
+         if(!q.empty() && arr[i]<0)
+         {
+             q.pop_front();
+         }
+         i++;
+      }
+      j++;
+   }
+
+   return res;
+
+}
+
