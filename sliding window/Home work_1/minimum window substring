@@ -1,0 +1,54 @@
+https://leetcode.com/problems/minimum-window-substring/
+
+class Solution {
+public:
+    string minWindow(string s, string t) 
+    {
+        unordered_map<char,int> need;
+
+        // store frequency of t
+        for(char c : t)
+            need[c]++;
+
+        int left = 0;
+        int minLen = INT_MAX;
+        int start = 0;
+        int missing = t.size();   // total chars still missing
+
+        for(int right = 0; right < s.size(); right++)
+        {
+            char rc = s[right];
+
+            // if this char is needed, reduce missing
+            if(need[rc] > 0)
+                missing--;
+
+            // consume current char
+            need[rc]--;
+
+            //shrink window when all chars are found
+            while(missing == 0)
+            {
+                // update minimum window
+                if(right - left + 1 < minLen)
+                {
+                    minLen = right - left + 1;
+                    start = left;
+                }
+
+                char lc = s[left];
+
+                // remove left char from window
+                need[lc]++;
+
+                // if removing breaks the requirement
+                if(need[lc] > 0)
+                    missing++;
+
+                left++; // shrink window
+            }
+        }
+
+        return minLen == INT_MAX ? "" : s.substr(start, minLen);
+    }
+};
