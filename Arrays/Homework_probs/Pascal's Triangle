@@ -1,0 +1,31 @@
+https://leetcode.com/problems/pascals-triangle/description/
+
+class Solution {
+public:
+/*
+i=0 1
+i=1 1 1
+i=2 1 2 1
+i=3 1 3 3 1
+i=4 1 4 6 4 1 
+
+//each row will have i+1 elements
+//1st and last ele will be 1. so initialise vector with 1
+// ans[i][j] = ans[prev row][same column] + ans[prev row] [same column-1]
+*/
+    vector<vector<int>> generate(int numRows) 
+    {
+        vector<vector<int>> res(numRows); //imp initialise
+
+        for(int i=0;i<numRows;i++)
+        {
+           res[i] = vector<int>(i+1,1);
+
+           for(int j=1;j<i;j++)//why start from 1 and end at less than i. because 1st and last ele 1
+           {
+              res[i][j] = res[i-1][j] + res[i-1][j-1];
+           }
+        }
+        return res;
+    }
+};
