@@ -49,7 +49,7 @@ vector<int> majorityElement(vector<int> v)
 {
 	vector<int> res; //max 2 ele can be answer 
 	//to use moores algo use 2 cand and 2 counts
-	int can1 = 0,can2 = 0;
+	int can1 = INT_MIN,can2 = INT_MIN; //initilise by INT_MIN wont work if array has 0 as ele ****************
 	int cnt1 = 0,cnt2 = 0;
 	int n = v.size();
 
