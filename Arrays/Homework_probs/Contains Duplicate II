@@ -1,0 +1,66 @@
+//https://leetcode.com/problems/contains-duplicate-ii/description/
+
+**
+store the indx in map as we need to find abs(i-j)<=k
+class Solution {
+public:
+    bool containsNearbyDuplicate(vector<int>& nums, int k) 
+    {
+        //condition is abs(i-j)<=k need to store the idx in map
+        int n = nums.size();
+        unordered_map<int,int> mp;
+
+        for(int i=0;i<n;i++)
+        {
+            if(mp.find(nums[i]) !=mp.end() && abs(i-mp[nums[i]])<=k)
+            {
+                return true;
+            }
+            //add in map
+            mp[nums[i]] = i;
+        }
+        return false;
+    }
+};
+
+time : o(n)
+space : o(n)
+
+****as its mentioning the window k*** try solving using sliding window***
+
+class Solution {
+public:
+    bool containsNearbyDuplicate(vector<int>& nums, int k) 
+    {
+        int n = nums.size();
+        int i=0,j=0;
+        unordered_map<int,int> mp;
+
+        while(j<n)
+        {
+            //add to map
+            mp[nums[j]]++;
+
+            //when length is k
+            if(j-i+1 > k+1)  ///vvvvvimp
+            {
+                //reduce window
+                mp[nums[i]]--;
+
+                if(mp[nums[i]] == 0)
+                {
+                    mp.erase(nums[i]);
+                }
+                i++;
+            }
+            if(mp[nums[j]] > 1)
+            {
+                return true;
+            }
+
+            j++;
+
+        }
+        return false;
+    }
+};
