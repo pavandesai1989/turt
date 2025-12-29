@@ -1,0 +1,19 @@
+//https://leetcode.com/problems/move-zeroes/submissions/1868516497/
+
+class Solution {
+public:
+    void moveZeroes(vector<int>& nums) 
+    {
+        int n = nums.size();
+        int idx=0;
+        for(int i=0;i<n;i++)
+        {
+            if(nums[i]!=0) //swap when its non zer
+            {
+                swap(nums[i],nums[idx]);
+                idx++;
+            }
+        }
+    }
+};
+
