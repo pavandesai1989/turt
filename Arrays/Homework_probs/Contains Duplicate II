@@ -42,7 +42,7 @@ public:
             mp[nums[j]]++;
 
             //when length is k
-            if(j-i+1 > k+1)  ///vvvvvimp
+            if(j - i > k)  // shrink ONLY when distance exceeds k
             {
                 //reduce window
                 mp[nums[i]]--;
