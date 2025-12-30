@@ -1,0 +1,66 @@
+//https://leetcode.com/problems/intersection-of-two-arrays/description/
+
+***brute force***
+need to use set to avoid the duplicates
+class Solution {
+public:
+   //time : Time O(n1 × n2)
+   //space : O(min(n1, n2))
+    vector<int> intersection(vector<int>& nums1, vector<int>& nums2) 
+    {
+        vector<int> res;
+        int n1 = nums1.size();
+        int n2 = nums2.size();
+
+        unordered_set<int> set;
+
+        for(int i=0;i<n1;i++)
+        {
+            for(int j=0;j<n2;j++)
+            {
+                if(nums1[i] == nums2[j])
+                {
+                    set.insert(nums1[i]); //to remove duplicates
+                }
+            }
+        }
+        
+        for(auto ele:set)
+        {
+            res.push_back(ele);
+        }
+        return res;
+    }
+};
+
+***
+class Solution {
+public:
+   //time : O(n1 + n2)
+   //space : O(n2)
+    vector<int> intersection(vector<int>& nums1, vector<int>& nums2) 
+    {
+        vector<int> res;
+        int n1 = nums1.size();
+        int n2 = nums2.size();
+        unordered_set<int> set;
+
+        //add ele of nums1 to set
+        for(auto ele:nums1)
+        {
+            set.insert(ele);
+        }
+
+        for(int i=0;i<n2;i++)
+        {
+           //check if ele is in set
+           if(set.count(nums2[i]))
+           {
+                res.push_back(nums2[i]);
+                //vimp to remove duplicates once found in set remove it from set
+                set.erase(nums2[i]);
+           }
+        }        
+        return res;
+    }
+};
