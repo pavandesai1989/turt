@@ -1,0 +1,35 @@
+//https://leetcode.com/problems/intersection-of-two-arrays-ii/description/
+
+class Solution {
+public:
+    //time : o(n1+n2)
+    //space : o(n1)
+    vector<int> intersect(vector<int>& nums1, vector<int>& nums2) 
+    {
+        vector<int> res;
+        int n1 = nums1.size();
+        int n2 = nums2.size();
+
+        unordered_map<int,int> mpp;
+        for(auto ele:nums1) // time : o(n1)
+        {
+            mpp[ele]++;
+        }
+
+        for(int i=0;i<n2;i++) //time : o(n2)
+        {
+            if(mpp.find(nums2[i]) != mpp.end())
+            {
+                res.push_back(nums2[i]);
+                //reduce count in map
+                mpp[nums2[i]]--;
+
+                if(mpp[nums2[i]] == 0)
+                {
+                    mpp.erase(nums2[i]);
+                }
+            }
+        }
+        return res;
+    }
+};
