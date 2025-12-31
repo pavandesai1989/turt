@@ -1,0 +1,142 @@
+//https://www.geeksforgeeks.org/problems/three-sum/1
+
+*** brute force***
+Time: o(n*n*n)
+
+#include <bits/stdc++.h>
+using namespace std;
+class Solution {
+  public:
+    vector<vector<int>> triplets(vector<int> &arr) 
+    {
+        vector<vector<int>> res;
+        set<vector<int>> sett;
+        int n=arr.size();
+        for(int i=0;i<=n-2;i++)
+        {
+            for(int j=i+1;j<n;j++)
+            {
+                for(int k=j+1;k<n;k++)
+                {
+                    if(arr[i]+arr[j]+arr[k] == 0)
+                    {
+                        vector<int> vec({arr[i],arr[j],arr[k]});
+                        sort(vec.begin(),vec.end());
+                        sett.insert(vec);
+                    }
+                }
+            }
+        }
+        res.assign(sett.begin(),sett.end());
+        return res;
+        
+    }
+};
+
+
+*******better ****
+sorting
+O(nlogn+n3)≈O(n3)
+O(log n) auxiliary (stack for sorting)
+
+#include <bits/stdc++.h>
+using namespace std;
+class Solution {
+  public:
+    vector<vector<int>> triplets(vector<int> &arr) 
+    {
+        vector<vector<int>> res;
+        int n=arr.size();
+        
+        sort(arr.begin(),arr.end());
+        for(int i=0;i<n;i++)
+        {
+            if(i>0 && arr[i] == arr[i-1]) continue;
+            for(int j=i+1;j<n;j++)
+            {
+                if(j>i+1 && arr[j] == arr[j-1]) continue;
+                for(int k=j+1;k<n;k++)
+                {
+                    if(k>j+1 && arr[k] == arr[k-1]) continue;
+                    if(arr[i]+arr[j]+arr[k] == 0)
+                    {
+                        vector<int> vec({arr[i],arr[j],arr[k]});
+                        sort(vec.begin(),vec.end());
+                        res.push_back(vec);
+                        
+                    }
+                }
+            }
+        }
+        return res;
+        
+    }
+};
+
+**** optimal *** 2 pointer 
+
+class Solution {
+  public:
+    //time 
+   // o(nlogn) + o(n*n) = o(n*n)
+   //space o(!)
+    vector<vector<int>> triplets(vector<int> &arr) 
+    {
+        vector<vector<int>> res;
+        int n=arr.size();
+        
+        //sort the array
+        sort(arr.begin(),arr.end()); //o(nlogn)
+        
+        //fix left part
+        for(int i=0;i<n;i++) //o(n)
+        {
+            //avoid duplciates
+            if(i>0 && arr[i]==arr[i-1]) continue;
+            
+            int l = i+1;
+            int r = n-1;
+            int target = -arr[i];
+            
+            while(l<r) //0(n)
+            {
+                int sum = arr[l]+arr[r];
+                if(sum == target)
+                {
+                    res.push_back({arr[i],arr[l],arr[r]});
+                    
+                    //after getting ans avoid next duplicates 
+                    while(l<r && arr[l] == arr[l+1]) l++;
+                    while(l<r && arr[r] == arr[r-1]) r--;
+                
+                    l++;
+                    r--;
+                }
+                else if(sum < target)
+                {
+                    l++;
+                }
+                else
+                {
+                    r--;
+                }
+                
+
+            }
+            
+        }
+        return res;
+        
+    }
+};
+
+
+| Approach                      | Time        | Space (aux) | Notes                                                         |
+| ----------------------------- | ----------- | ----------- | ------------------------------------------------------------- |
+| Brute-force + set             | O(n³ log M) | O(M)        | Simple, handles duplicates automatically                      |
+| Brute-force + skip duplicates | O(n³)       | O(1)        | Array sorted, manual skip, slower                             |
+| Two-pointer optimal           | O(n²)       | O(1)        | Array sorted, skip duplicates automatically, fastest solution |
+
+
+
+
