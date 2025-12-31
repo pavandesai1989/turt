@@ -1,0 +1,59 @@
+//https://www.geeksforgeeks.org/problems/next-larger-element-1587115620/1
+
+***bruteforce**
+Time : o(n*n)
+space : 0(1)
+
+class Solution {
+  public:
+    vector<int> nextLargerElement(vector<int>& arr) 
+    {
+        vector<int> res;
+        int n=arr.size();
+        for(int i=0;i<n;i++)
+        {
+            int nge = -1;
+            for(int j=i+1;j<n;j++)
+            {
+                if(arr[j]>arr[i])
+                {
+                    nge = arr[j];
+                    break;
+                }
+            }
+            res.push_back(nge);
+        }
+        return res;
+        
+    }
+};
+
+*******optimal****
+Time : o(n)
+space : o(n)
+
+class Solution {
+  public:
+    vector<int> nextLargerElement(vector<int>& arr) 
+    {
+        
+        stack<int> st;
+        int n=arr.size();
+        vector<int> res(n);//imp size 
+        
+        //start from the end
+        for(int i=n-1;i>=0;i--)
+        {
+            while(!st.empty() && st.top()<=arr[i])
+            {
+                st.pop();
+            }
+            int nge = st.empty() ? -1 : st.top();
+            st.push(arr[i]);
+            res[i] = nge; //don't push_back
+            
+        }
+        
+        return res;
+    }
+};
