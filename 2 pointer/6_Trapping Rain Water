@@ -1,1 +1,109 @@
 https://leetcode.com/problems/trapping-rain-water/description/
+
+***Brute force*** 
+Algorithm (Brute Force)
+
+Ignore first and last bar (they can’t trap water)
+
+For every index i:
+
+Scan left → find lmax
+
+Scan right → find rmax
+
+Add trapped water:
+max(0, min(lmax, rmax) − height[i])
+
+class Solution {
+public:
+    int trap(vector<int>& height) 
+    {
+        int res = 0;
+        int n=height.size();
+        for(int i=1;i<n-1;i++)//ignore 1st and last bars as we cant store water
+        {
+            int lmax = INT_MIN,rmax=INT_MIN;
+            //left max
+            for(int j=0;j<i;j++)
+            {
+                lmax = max(lmax,height[j]);
+            }
+            //right max
+            for(int k=i+1;k<n;k++)
+            {
+                rmax = max(rmax,height[k]);
+            }
+
+            res += max(0,min(lmax,rmax)-height[i]); //vvvvvimp 
+        }
+        return res;
+    }
+};
+
+O(n) × (O(n) + O(n)) = O(n²)
+*****
+Better using prefix sum 
+time : o(n)
+space : o(n)
+
+class Solution {
+public:
+    int trap(vector<int>& height) 
+    {
+        //use prefix sum technique
+        int n=height.size();
+        vector<int> lmax(n,0);
+        lmax[0] = height[0];
+
+        vector<int> rmax(n,0);
+        rmax[n-1]=height[n-1];
+
+        for(int i=1;i<n;i++)
+        {
+           lmax[i]=max(lmax[i-1],height[i]);
+        }
+
+        for(int i=n-2;i>=0;i--)
+        {
+           rmax[i]=max(rmax[i+1],height[i]);
+        }
+
+        int res=0;
+        for(int i=0;i<n;i++)
+        {
+            res += min(lmax[i],rmax[i])-height[i];
+        }
+        return res;
+    }
+};
+
+
+
+
+***optimal 2 pointer ***
+time : o(n)
+        int n=height.size();
+        int res=0;
+        int lmax=0,rmax=0;
+        int l=0,r=n-1;
+
+        while(l<r)
+        {
+            //find lamx and rmax
+            lmax = max(lmax,height[l]);
+            rmax = max(rmax,height[r]);
+
+            if(lmax<rmax)
+            {
+                //left is the deciding factor
+                res += lmax-height[l];
+                l++;
+            }
+            else
+            {
+                res += rmax-height[r];
+                r--;
+            }
+
+        }
+        return res;
