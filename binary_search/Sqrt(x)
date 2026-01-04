@@ -1,0 +1,31 @@
+https://neetcode.io/problems/sqrtx/question
+
+class Solution {
+public:
+    int mySqrt(int x) 
+    {
+        if(x<=2) return x;
+        long long ans = 1;
+        long long  l = 0,r = x/2;
+
+        while(l<=r)
+        {
+            long long mid = (r-l)/2 + l;//imp overflow 
+            if(mid*mid == x) return mid;
+
+            if(mid*mid < x)
+            {
+                //probable ans
+                ans = mid;
+
+                //move to right to get better ans
+                l = mid+1;
+            }
+            else
+            {
+                r = mid-1;
+            }
+        }
+        return ans;
+    }
+};
