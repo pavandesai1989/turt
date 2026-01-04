@@ -1,0 +1,71 @@
+https://neetcode.io/problems/search-in-rotated-sorted-array-ii/question
+
+why to add duplciates logic here?
+nums = [1, 0, 1, 1, 1]
+target = 0
+
+
+👉 Problem:
+The left side [1, 0, 1] was not actually sorted, but because of duplicates (1 1 1), the algorithm mistakenly thinks it is.
+
+The target 0 was in the left half — but it just got discarded.
+
+Eventually, the search fails ❌.
+
+“I cannot determine which half is sorted because duplicates hide the rotation.”
+
+So instead of making a wrong binary decision, we:
+
+shrink the search space safely
+
+keep the target range intact
+
+
+
+class Solution {
+public:
+    bool search(vector<int>& nums, int target) 
+    {
+        int n=nums.size();
+        int l=0,r=n-1;
+
+        while(l<=r)
+        {
+            int mid=(r-l)/2+l;
+            if(nums[mid]==target) return true;
+
+            //avoid duplicates
+            if(nums[l]==nums[mid] && nums[mid]==nums[r])
+            {
+                l++;
+                r--;
+                continue;
+            }
+
+            //check if left is sorted
+            if(nums[l]<=nums[mid])
+            {
+                if(target>=nums[l] && target<=nums[mid])
+                {
+                    r = mid-1;
+                }
+                else
+                {
+                    l = mid+1;
+                }
+            }
+            else //right sorted
+            {
+                if(target>=nums[mid] && target<=nums[r])
+                {
+                    l = mid+1;
+                }
+                else
+                {
+                    r = mid-1;
+                }
+            }
+        }
+        return false;
+    }
+};
