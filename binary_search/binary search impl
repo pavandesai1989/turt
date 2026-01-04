@@ -1,0 +1,31 @@
+https://neetcode.io/problems/binary-search/history
+
+class Solution {
+public:
+    int search(vector<int>& nums, int target) 
+    {
+        int n=nums.size();
+        int l=0;
+        int h=n-1;
+
+        while(l<=h)
+        {
+            int mid = (h-l)/2 + l;
+            if(nums[mid] == target)
+            {
+                return mid;
+            }
+            else if(nums[mid]<target)
+            {
+                l = mid+1;
+            }
+            else
+            {
+                h = mid-1;
+            }
+        }
+        return -1;
+    }
+};
+
+Time : o(logn)
