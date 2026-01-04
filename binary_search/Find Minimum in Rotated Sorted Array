@@ -1,0 +1,26 @@
+https://neetcode.io/problems/find-minimum-in-rotated-sorted-array/question
+
+class Solution {
+public:
+    int findMin(vector<int> &nums) 
+    {
+        //core idea in sorted array always 1st idx is lower 
+        int res=0;
+        int n=nums.size();
+        int l=0,r=n-1;
+
+        while(l<r)
+        {
+            int mid=(r-l)/2+l;
+            if(nums[mid]>nums[r])
+            {
+                l=mid+1; //ans will be on right side
+            }
+            else
+            {
+                r=mid;//mid could be the answer
+            }
+        }
+        return nums[l];
+    }
+};
