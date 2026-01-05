@@ -1,0 +1,56 @@
+https://neetcode.io/problems/capacity-to-ship-packages-within-d-days/question?list=neetcode250
+
+
+O(n)                         // preprocessing
++ O(log(sum(weights))) * O(n) // binary search × feasibility check
+
+  
+class Solution {
+public:
+    bool canShip(vector<int>& weights, int mid,int days)
+    {
+        int numdays=1;
+        int currload = 0;
+
+        for(auto& ele:weights)
+        {
+            if(currload+ele>mid)
+            {
+               numdays++;
+               currload = ele;
+            }
+            else
+            {
+                currload += ele;
+            }
+        }
+        return numdays<=days;
+
+    }
+    int shipWithinDays(vector<int>& weights, int days) 
+    {
+        int n=weights.size();
+        int l=0,r=0;
+        for(auto& ele:weights) //o(n)
+        {
+            l = max(l,ele);
+            r += ele;
+        }        
+
+        while(l<r) //o(log(sumofweights))*o(n)
+        {
+            int mid = (r-l)/2+l;
+
+            if(canShip(weights,mid,days))
+            {
+                r=mid;
+            }
+            else
+            {
+                l=mid+1;
+            }
+        }
+        return l;
+    }
+};        
+
