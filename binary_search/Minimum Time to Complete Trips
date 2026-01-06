@@ -1,0 +1,40 @@
+https://leetcode.com/problems/minimum-time-to-complete-trips/description/
+
+class Solution {
+public:
+    bool canCompleteTrips(vector<int>& time, long long mid,long long totalTrips)
+    {
+         long long actualTrips=0;
+         for(auto ele:time)
+         {
+            actualTrips += mid/ele;
+         }
+         return actualTrips>=totalTrips;
+    }
+    long long minimumTime(vector<int>& time, int totalTrips)
+    {
+        int n=time.size();
+        long long l = 1;
+        long long minEle = 1e9;
+        for(auto ele:time)
+        {
+            minEle = min((long long)ele,minEle);
+        }
+        long long r = minEle * totalTrips;
+
+        while(l<r)
+        {
+           long long mid=(r-l)/2+l;
+
+           if(canCompleteTrips(time,mid,totalTrips))
+           {
+            r=mid;
+           }
+           else
+           {
+            l=mid+1;
+           }
+        }
+        return l;
+    }
+};   
