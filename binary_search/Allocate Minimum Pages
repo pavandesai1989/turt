@@ -1,0 +1,52 @@
+//https://www.geeksforgeeks.org/problems/allocate-minimum-number-of-pages0937/1
+class Solution {
+  public:
+    bool canAllocateBooks(vector<int> arr,int mid,int numStu)
+    {
+        int actPages=0;
+        int actStu=1;
+        
+        for(auto ele:arr)
+        {
+            if(actPages+ele>mid)
+            {
+                actStu++;
+                actPages = ele;
+            }
+            else
+            {
+                actPages +=ele;
+            }
+        }
+        return actStu>numStu;
+    }
+    int findPages(vector<int> &arr, int k)
+    {
+        int n=arr.size();
+        if (k > n) return -1;
+        //l is max ele and r is sum of ele
+        int l=-1e9,r=0;
+        
+        for(auto ele:arr)
+        {
+            l = max(l,ele);
+            r += ele;
+        }
+        
+        while(l<r)
+        {
+            int mid=(r-l)/2+l;
+            
+            if((canAllocateBooks(arr,mid,k)))
+            {
+                //increase pages
+                l = mid+1;
+            }
+            else
+            {
+                r=mid;
+            }
+        }
+        return l;
+    }
+};
