@@ -1,0 +1,51 @@
+https://leetcode.com/problems/split-array-largest-sum/description/
+
+class Solution {
+public:
+    bool cannotSplit(vector<int>& nums, int mid, int k)
+    {
+        int actSum = 0;
+        int numSubarrays = 1;
+
+        for(auto& ele:nums)
+        {
+            if(actSum+ele > mid)
+            {
+                numSubarrays++;//goes in next sub array
+                actSum = ele;
+            }
+            else
+            {
+               actSum += ele;
+            }
+        }
+        return numSubarrays>k;
+    }
+    int splitArray(vector<int>& nums, int k) 
+    {
+        int n=nums.size();
+        if(k>n) return -1;//edge case
+        int l=-1e9,r=0;
+
+        for(auto ele:nums)
+        {
+            l = max(l,ele);
+            r += ele;
+        }
+
+        while(l<r)
+        {
+            int mid=(r-l)/2+l;
+
+            if(cannotSplit(nums,mid,k))
+            {
+                l=mid+1;
+            }
+            else
+            {
+                r=mid;
+            }
+        }
+        return l;
+    }
+};
