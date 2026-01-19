@@ -1,0 +1,56 @@
+https://leetcode.com/problems/permutations-ii/description/
+
+class Solution {
+public:
+    void helper(vector<int>& nums,unordered_map<int,int>& mpp,vector<int>& op,vector<vector<int>>& res)
+    {
+       if(op.size() == nums.size())
+       {
+           res.push_back(op);
+           return;
+       }
+
+       //iterate over the map not array ********
+       for(auto& ele: mpp)
+       {
+           if(ele.second == 0)
+           {
+            continue;
+           }
+           if(ele.second >= 1)
+           {
+             //add to op
+             op.push_back(ele.first);
+             mpp[ele.first]--;
+
+             helper(nums,mpp,op,res);
+
+             //backtracking
+             op.pop_back();
+             mpp[ele.first]++;
+           }
+       }
+
+
+
+    }
+    vector<vector<int>> permuteUnique(vector<int>& nums) 
+    {
+        //here ip can have duplicates can't use set use map
+        vector<vector<int>> res;
+        vector<int> op;
+        unordered_map<int,int> mpp;
+
+        for(auto& ele:nums)
+        {
+            mpp[ele]++;
+        }
+        helper(nums,mpp,op,res);
+        return res;
+    }
+};
+
+Time:
+
+
+Time 
