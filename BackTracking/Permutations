@@ -1,0 +1,40 @@
+https://leetcode.com/problems/permutations/description/
+
+class Solution {
+public:
+    void helper(vector<int>& nums,int idx,vector<int>& op,unordered_set<int>& st,vector<vector<int>>& res)
+    {
+        if(op.size() == nums.size())
+        {
+            res.push_back(op);
+            return;
+        }
+
+        for(int i=0;i<nums.size();i++)//loop starts from 0
+        {
+            //do if ele is not in set
+            if(st.find(nums[i]) == st.end())
+            {
+                st.insert(nums[i]); //imp use i not idx ******
+                op.push_back(nums[i]);
+
+                helper(nums,i,op,st,res); //imp pass i not idx+1
+
+                //back track
+                op.pop_back();
+                st.erase(nums[i]); //imp
+            }
+        }
+
+    }
+    vector<vector<int>> permute(vector<int>& nums) 
+    {
+        vector<vector<int>> res;
+        vector<int> op;
+        unordered_set<int> st;
+
+        helper(nums,0,op,st,res);
+
+        return res;
+    }
+};
