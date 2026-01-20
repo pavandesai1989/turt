@@ -1,0 +1,86 @@
+https://leetcode.com/problems/palindrome-partitioning/description/
+
+Logic:
+"aab"
+ ├─ "a" ✓
+ │   └─ "ab"
+ │       ├─ "a" ✓
+ │       │   └─ "b" ✓ → ["a","a","b"]
+ │       └─ "ab" ✗
+ └─ "aa" ✓
+     └─ "b" ✓ → ["aa","b"]
+
+
+class Solution {
+public:
+    // Function to check whether a given string is a palindrome
+    bool ispalindrome(string str)
+    {
+       // Left pointer starting from beginning
+       int l = 0;
+       // Right pointer starting from end
+       int r = str.size() - 1;
+
+       // Compare characters while left index is less than right index
+       while(l < r)
+       {
+          // If characters at l and r do not match, it's not a palindrome
+          if(str[l++] != str[r--])
+          {
+            return false; // exit immediately
+          }
+       }
+
+       // All characters matched, so it is a palindrome
+       return true;
+    }
+
+    // Recursive helper function for backtracking
+    void helper(string s, vector<string>& op, vector<vector<string>>& res)
+    {
+       // Base case: if the string is empty
+       if(s.size() == 0)
+       {
+          // Current partition (op) is valid, store it in result
+          res.push_back(op);
+          return;
+       }
+
+       // Try all possible prefixes of string s
+       for(int i = 0; i < s.size(); i++)
+       {
+          // Extract prefix substring of length (i + 1)
+          // Example: s = "aab", i = 1 → part = "aa"
+          string part = s.substr(0, i + 1);
+
+          // Check if the prefix is a palindrome
+          if(ispalindrome(part))
+          {
+             // Choose: add the palindrome substring to current output
+             op.push_back(part);
+
+             // Explore: recursively solve for remaining string
+             helper(s.substr(i + 1), op, res);
+
+             // Backtrack: remove last added substring
+             op.pop_back();
+          }
+       }
+    }
+
+    // Main function to return all palindrome partitions
+    vector<vector<string>> partition(string s) 
+    {
+        // Stores all possible palindrome partitions
+        vector<vector<string>> res;
+
+        // Stores current partition being built
+        vector<string> op;
+
+        // Start backtracking with the original string
+        helper(s, op, res);
+
+        // Return final result
+        return res;
+    }
+};
