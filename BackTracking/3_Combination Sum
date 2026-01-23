@@ -1,0 +1,39 @@
+https://leetcode.com/problems/combination-sum/description/
+
+logic : include exclude case 
+
+each ele can be taken multiple times : so call on same index again till a[idx)<=target
+
+class Solution {
+public:
+    void helper(vector<int>& nums,int idx,int target,vector<int>& op,vector<vector<int>>& res)
+    {
+        if(idx== nums.size())
+        {
+            if(target == 0)
+            {
+              res.push_back(op);
+            }
+
+            return;
+        }
+
+        //include case
+        if(nums[idx]<=target)
+        {
+            op.push_back(nums[idx]);
+            helper(nums,idx,target-nums[idx],op,res);
+            op.pop_back();
+        }
+       //exclude case
+        helper(nums,idx+1,target,op,res);
+
+    }
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) 
+    {
+       vector<vector<int>> res;
+       vector<int> op;
+       helper(candidates,0,target,op,res);
+       return res;   
+    }
+};
