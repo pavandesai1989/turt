@@ -1,0 +1,46 @@
+https://leetcode.com/problems/subsets-ii/description/
+
+logic : sort the array to handle duplicates 
+inlcude all ele in include case 
+handle duplicates before calling exclude case *****
+
+class Solution {
+public:
+    void helper(vector<int>& nums,int idx,vector<int>& op,vector<vector<int>>& res)
+    {
+        //base case
+        if(idx >= nums.size())
+        {
+            res.push_back(op);
+            return;
+        }
+
+        //include case
+        op.push_back(nums[idx]);
+        //call on next idx 
+        helper(nums,idx+1,op,res);
+        //back track
+        op.pop_back();
+
+        //avoid duplicates
+        while(idx+1<nums.size() && nums[idx]==nums[idx+1])
+        {
+            idx++;
+        }
+
+        //exclude case
+        helper(nums,idx+1,op,res);
+
+    }
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) 
+    {
+        vector<vector<int>> res;
+        vector<int> op;
+        //sort to handle the duplicates
+        sort(nums.begin(),nums.end());
+
+        helper(nums,0,op,res);
+
+        return res;
+    }
+};
