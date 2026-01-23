@@ -1,0 +1,36 @@
+//https://leetcode.com/problems/subsets/description/
+
+Logic : include and exclude 
+
+class Solution {
+public:
+    void helper(vector<int>& nums,int idx,vector<int>& op,vector<vector<int>>& res)
+    {
+       //base case
+       if(idx>=nums.size())
+       {
+         res.push_back(op);
+         return;
+       }
+
+       //include case
+       op.push_back(nums[idx]);
+       helper(nums,idx+1,op,res);
+       //backtrack
+       op.pop_back();
+
+       //exclude case
+       helper(nums,idx+1,op,res);
+    }
+    vector<vector<int>> subsets(vector<int>& nums) 
+    {
+        vector<vector<int>> res;
+        vector<int> op;
+        helper(nums,0,op,res);
+        return res;
+    }
+};
+
+time : 
+
+space : 
