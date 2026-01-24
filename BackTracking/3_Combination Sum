@@ -37,3 +37,8 @@ public:
        return res;   
     }
 };
+
+
+time : o(T*2^T)
+
+space :o(T*2^T)  T is target
