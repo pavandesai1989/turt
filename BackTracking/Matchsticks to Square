@@ -1,0 +1,57 @@
+https://leetcode.com/problems/matchsticks-to-square/description/
+
+class Solution {
+public:
+    bool helper(int idx,int bnum,int bsum,int reqsum,vector<int>&arr,vector<int>& visited,int k)
+    {
+
+        if(bnum == k) return true;
+        if(idx >= arr.size()) return false;
+        if(bsum > reqsum) return false;
+
+        if(bsum == reqsum)
+        {
+            //start from o idx and go to next bucket
+            return helper(0,bnum+1,0,reqsum,arr,visited,k);
+        }
+
+         if(visited[idx]==1)
+         {
+            return helper(idx+1,bnum,bsum,reqsum,arr,visited,k);
+         }
+         else
+         {
+            //take case
+            bsum += arr[idx];
+            visited[idx]=1;
+
+            bool op1 = helper(idx+1,bnum,bsum,reqsum,arr,visited,k);
+
+            //backtracking
+            bsum -= arr[idx];
+            visited[idx]=0;
+
+            bool op2 = helper(idx+1,bnum,bsum,reqsum,arr,visited,k);
+
+            return op1 || op2;
+         }
+         return false;
+    }
+
+    bool makesquare(vector<int>& arr) 
+    {
+        int sum=0;
+        for(auto& ele:arr)
+        {
+            sum += ele;
+        }
+
+        if(sum%4 !=0 ) return false;
+        int reqsum = sum/4;
+        vector<int> visited(arr.size(),0);
+        
+        return helper(0,1,0,reqsum,arr,visited,4);
+
+       
+    }
+};
