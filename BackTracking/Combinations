@@ -1,0 +1,31 @@
+https://leetcode.com/problems/combinations/description/?envType=study-plan-v2&envId=top-interview-150
+
+class Solution {
+public:
+    void helper(int start,int n,int k, vector<int>& op,vector<vector<int>>& res)
+    {
+        //base case
+        if(op.size() == k)
+        {
+            res.push_back(op);
+            return;
+        }
+
+        //try all possible ways
+        for(int i=start;i<=n;i++)
+        {
+            op.push_back(i);
+            helper(i+1,n,k,op,res);
+            op.pop_back();
+        }
+
+    }
+    vector<vector<int>> combine(int n, int k) 
+    {
+        vector<vector<int>> res;
+        vector<int> op;
+        helper(1,n,k,op,res);
+
+        return res;
+    }
+};
