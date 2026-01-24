@@ -1,0 +1,61 @@
+https://leetcode.com/problems/letter-combinations-of-a-phone-number/description/?envType=study-plan-v2&envId=top-interview-150
+
+class Solution {
+public:
+    void helper(int idx,string ip,string ds,vector<string>& res,vector<string>& mapping)
+    {
+        if(idx >= ip.size())
+        {
+            res.push_back(ds);
+            return;
+        }
+
+        int imp = ip[idx]-'0';
+        string str = mapping[imp];
+
+        //try all combinations of str
+        for(int i=0;i<str.size();i++) //not i starts from 0 as we need to check all combinations
+        {
+            ds.push_back(str[i]);
+            helper(idx+1,ip,ds,res,mapping); //note its idx+1 not i+1
+            ds.pop_back();
+        }
+
+
+    }
+    vector<string> letterCombinations(string digits) 
+    {
+        vector<string> res;
+        string ds;
+        vector<string> mapping = {"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+        helper(0,digits,ds,res,mapping);
+        return res;
+
+
+    }
+
+Time Complexity
+
+Each digit can map to up to 4 letters.
+
+For n digits, total combinations = at most 
+4
+𝑛
+4
+n
+.
+
+Each combination takes O(n) time to build (ds.push_back / pop_back).
+
+→ Time: O(n * 4^n)
+
+Space Complexity
+
+Recursion stack + temp string ds → O(n)
+
+Result array res stores all combinations → O(n * 4^n)
+
+→ Space: O(n * 4^n)
+
+
+};
