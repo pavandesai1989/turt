@@ -31,6 +31,25 @@ public:
     }
 };
 
-time : 
+Time Complexity
+“For each element, I have two choices — either include it in the subset or exclude it.
+So the recursion forms a binary tree where each level corresponds to one element.”
 
-space : 
+Number of elements = n
+
+Total subsets generated = 2ⁿ
+
+“Every time I reach the base case, I store the current subset.
+Copying that subset takes O(n) time in the worst case.”
+Time Complexity is O(n × 2ⁿ)
+
+1️⃣ Recursive stack + temporary vector
+
+“The recursion depth goes up to n, and the temporary subset vector also stores up to n elements.”
+
+Auxiliary space = O(n)
+
+2️⃣ Result storage
+
+“Since we store all 2ⁿ subsets and each subset can take up to n space,
+the result storage is O(n × 2ⁿ).
