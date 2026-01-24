@@ -2,7 +2,7 @@ https://leetcode.com/problems/palindrome-partitioning/description/
 
 Logic:
 "aab"
- ├─ "a" ✓
+ ├─ "a" ✓ 
  │   └─ "ab"
  │       ├─ "a" ✓
  │       │   └─ "b" ✓ → ["a","a","b"]
