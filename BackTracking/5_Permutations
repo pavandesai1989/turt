@@ -2,39 +2,43 @@ https://leetcode.com/problems/permutations/description/
 
 class Solution {
 public:
-    void helper(vector<int>& nums,int idx,vector<int>& op,unordered_set<int>& st,vector<vector<int>>& res)
+    void helper(vector<int>& nums,vector<int> ds,vector<vector<int>>& res,unordered_set<int>& sett)
     {
-        if(op.size() == nums.size())
+        //base case
+        if(ds.size() == nums.size())
         {
-            res.push_back(op);
+            res.push_back(ds);
             return;
         }
 
-        for(int i=0;i<nums.size();i++)//loop starts from 0
+        //try all possible ways
+        for(int i=0;i<nums.size();i++)
         {
-            //do if ele is not in set
-            if(st.find(nums[i]) == st.end())
+            if(sett.find(nums[i]) == sett.end()) //if not in set
             {
-                st.insert(nums[i]); //imp use i not idx ******
-                op.push_back(nums[i]);
+                ds.push_back(nums[i]);
+                sett.insert(nums[i]);
 
-                helper(nums,i,op,st,res); //imp pass i not idx+1
+                helper(nums,ds,res,sett);
 
-                //back track
-                op.pop_back();
-                st.erase(nums[i]); //imp
+                ds.pop_back();
+                sett.erase(nums[i]);
             }
         }
-
     }
+
     vector<vector<int>> permute(vector<int>& nums) 
     {
         vector<vector<int>> res;
-        vector<int> op;
-        unordered_set<int> st;
+        vector<int> ds;
+        unordered_set<int> sett;
 
-        helper(nums,0,op,st,res);
+        helper(nums,ds,res,sett);
 
         return res;
+        
     }
 };
+
+Time : O(n×n!)​
+space : auxillary space : O(n)​ and O(n×n!)
