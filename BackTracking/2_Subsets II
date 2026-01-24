@@ -44,3 +44,13 @@ public:
         return res;
     }
 };
+
+
+Worst case:
+
+o(n*logn) + (o(n)* 2^n)
+
+space : o(n)* 2^n​
+
+
+(Sorting + generating and copying all subsets)
