@@ -45,3 +45,8 @@ public:
     }
 };
 
+Time : O(nlogn+n×2n)​
+
+Space : O(n×2n)​
+
+
