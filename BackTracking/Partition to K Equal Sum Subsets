@@ -1,0 +1,62 @@
+https://leetcode.com/problems/partition-to-k-equal-sum-subsets/
+
+class Solution {
+public:
+    bool helper(int idx,int bnum,int bsum,int reqsum,int k,vector<int>& arr,vector<int>& visited)
+    {
+        if(bnum == k+1) //all buckets filled
+           return true;
+
+         //base cases
+         if(bsum == reqsum)
+         {
+            //go to next bucket and make bsum =0
+            return helper(0,bnum+1,0,reqsum,k,arr,visited);   ///vvvvimp start from idx 0 again and bsum will be zero only bnum is +1
+         }
+
+         if(idx==arr.size())
+           return false;
+
+         if(bsum>reqsum)
+           return false;   
+
+
+         if(visited[idx]==1)
+         {
+            return helper(idx+1,bnum,bsum,reqsum,k,arr,visited);
+         }
+         else
+         {
+            //pick the ele
+            bsum += arr[idx];
+            visited[idx] = 1;
+
+            bool op1 = helper(idx+1,bnum,bsum,reqsum,k,arr,visited);
+
+            //not pick backtracking
+            bsum -= arr[idx];
+            visited[idx] = 0;
+            bool op2 = helper(idx+1,bnum,bsum,reqsum,k,arr,visited);
+
+            return op1 || op2;
+         }
+    }
+    bool canPartitionKSubsets(vector<int>& nums, int k) 
+    {
+        int totalSum = 0;
+        int n = nums.size();
+        for(auto ele:nums)
+           totalSum +=ele;
+
+        int reqSum =  totalSum/k;
+
+        // sum is odd
+        
+        if(totalSum % k)
+            return false;
+
+        vector<int> visited(n,0); 
+
+       return helper(0,1,0,reqSum,k,nums,visited);
+    }
+};
