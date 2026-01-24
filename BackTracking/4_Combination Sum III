@@ -1,0 +1,44 @@
+https://leetcode.com/problems/combination-sum-iii/description/
+
+class Solution {
+public:
+    void helper(int start,int target,int k,vector<int> ds,vector<vector<int>>& res)
+    {
+
+        if(k == 0)
+        {
+            if(target == 0)
+            {
+                res.push_back(ds);
+            }
+            return;
+        }
+
+        if(start > 9) return;
+        if(target < 0) return;
+
+        //include case
+        if(start<=target)
+        {
+            ds.push_back(start);
+            helper(start+1,target-start,k-1,ds,res);
+            ds.pop_back();
+        }
+
+        //exclude
+        helper(start+1,target,k,ds,res);
+    }
+
+    vector<vector<int>> combinationSum3(int k, int n) 
+    {
+        vector<vector<int>> res;
+        vector<int> ds;
+
+        helper(1,n,k,ds,res);
+        return res;
+    }
+};
+
+“Since the numbers are fixed from 1 to 9, the recursion explores at most 2⁹ subsets, which is constant.
+Each valid combination copy takes O(k), so overall time is O(k).
+The recursion depth is at most 9, giving constant auxiliary space.”
