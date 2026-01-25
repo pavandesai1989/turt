@@ -1,0 +1,47 @@
+//https://leetcode.com/problems/sort-characters-by-frequency/
+
+
+class Solution {
+public:
+    string frequencySort(string s) 
+    {
+        // Time: O(n)
+        // Space: O(n)
+        // Frequency map to count occurrences of each character
+        unordered_map<char,int> freq;
+
+        for(char ch : s)
+        {
+            freq[ch]++;
+        }
+
+        // Time: O(n log n)
+        // Space: O(n)
+        // Map to sort characters by frequency in descending order
+        // Key   -> frequency
+        // Value -> list of characters with that frequency
+        map<int, vector<char>, greater<int>> mp;
+
+        for(auto& ele : freq)
+        {
+            mp[ele.second].push_back(ele.first);
+        }
+
+        // Time: O(n)
+        // Space: O(n) for result string
+        // Build the result string by appending each character
+        // 'frequency' number of times
+        string res = "";
+        for(auto& ele : mp)
+        {
+            for(char ch : ele.second)
+            {
+                res.append(ele.first, ch); // append 'ch' exactly ele.first times
+            }
+        }
+
+        // Overall Time Complexity: O(n log n)
+        // Overall Space Complexity: O(n)
+        return res;
+    }
+};
