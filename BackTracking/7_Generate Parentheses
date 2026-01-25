@@ -4,7 +4,7 @@ class Solution {
 public:
     void helper(int open,int closed,int n,string str,vector<string>& res)
     {
-       if(open+closed == 2*n)
+       if(open+closed == 2*n) 
        {
            res.push_back(str);
            return;
