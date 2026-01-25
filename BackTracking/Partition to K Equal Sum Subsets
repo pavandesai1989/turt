@@ -4,7 +4,7 @@ class Solution {
 public:
     bool helper(int idx,int bnum,int bsum,int reqsum,int k,vector<int>& arr,vector<int>& visited)
     {
-        if(bnum == k+1) //all buckets filled
+        if(bnum == k+1) //all buckets filled 
            return true;
 
          //base cases
