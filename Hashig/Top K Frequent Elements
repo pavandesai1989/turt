@@ -1,0 +1,61 @@
+//https://leetcode.com/problems/top-k-frequent-elements/description/
+
+class Solution {
+public:
+    vector<int> topKFrequent(vector<int>& nums, int k) 
+    {
+        vector<int> res;
+        unordered_map<int,int> mpp;
+        for(auto& ele:nums) //time o(n)
+        {
+            mpp[ele]++;
+        }
+
+        map<int,vector<int>,greater<int>> mp;
+        for(auto& ele:mpp) //time o(n*logn)
+        {
+           mp[ele.second].push_back(ele.first);
+        }
+
+        for(auto& ele:mp) //time o(k)
+        {
+            for(auto& itr:ele.second)
+            {
+                res.push_back(itr);
+                if(res.size() == k) return res;
+            }
+        }
+        return res;
+    }
+};
+
+//time : o(n*logn) + o(n) = o(nlogn)
+//space : o(n)
+
+Breakdown:
+
+Frequency count (unordered_map)
+→ O(n)
+
+Insert into ordered map (key = frequency)
+
+Each insertion: O(log n)
+
+Up to n distinct elements
+→ O(n log n)
+
+Traversal to collect k elements
+→ O(k) (worst case O(n))
+
+O(n) + O(n log n) + O(k) ≈ O(n log n)
+
+Space Complexity
+
+unordered_map → O(n)
+
+map<int, vector<int>> → O(n)
+
+Result vector → O(k)
+
+✔️ Space: O(n) (correct)
+
