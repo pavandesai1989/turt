@@ -2,7 +2,7 @@ https://leetcode.com/problems/matchsticks-to-square/description/
 
 class Solution {
 public:
-    bool helper(int idx,int bnum,int bsum,int reqsum,vector<int>&arr,vector<int>& visited,int k)
+    bool helper(int idx,int bnum,int bsum,int reqsum,vector<int>&arr,vector<int>& visited,int k) 
     {
 
         if(bnum == k) return true;
