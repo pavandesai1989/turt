@@ -1,0 +1,24 @@
+https://leetcode.com/problems/ransom-note/description/
+
+class Solution {
+public:
+    bool canConstruct(string ransomNote, string magazine) 
+    {
+        unordered_map<char,int> mp_mag;
+        for(auto& ele:magazine)
+        {
+            mp_mag[ele]++;
+        }
+
+        for(auto& ele:ransomNote)
+        {
+            if(mp_mag[ele] == 0)
+            {
+                return false;
+            }
+            mp_mag[ele]--;
+
+        }
+        return true;
+    }
+};
