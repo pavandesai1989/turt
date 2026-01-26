@@ -1,0 +1,76 @@
+https://takeuforward.org/plus/dsa/problems/longest-consecutive-sequence-in-an-array?category=hashing&subcategory=faqs&tab=description
+
+brute force:
+class Solution {
+public:
+    bool checknextele(vector<int>& nums,int ele)
+    {
+        for(int i=0;i<nums.size();i++)
+        {
+            if(nums[i]==ele) return true;
+        }
+        return false;
+    }
+    int longestConsecutive(vector<int>& nums) 
+    {
+        int n=nums.size();
+        int maxlen=1;
+        if(nums.size()==1) return 1;
+        for(int i=0;i<n;i++) //o(n)
+        {
+            int currele = nums[i];
+            int res =1;
+            while(checknextele(nums,currele+1)) //o(n2)
+            {
+                res +=1;
+                currele += 1;
+            }
+            maxlen = max(maxlen,res);
+
+        }
+        return maxlen;
+    }
+};
+
+Outer loop → O(n)
+
+checknextele() → O(n)
+
+while loop can run up to O(n) times in worst case
+
+Total:o(n3)
+
+****************
+class Solution {
+public:
+    int longestConsecutive(vector<int>& nums) 
+    {
+        int n=nums.size();
+        if(nums.size()==1) return 1;
+        sort(nums.begin(),nums.end());
+        int res =1;
+        int maxLen=1;
+        for(int i=0;i<n-1;i++)
+        {
+           if(nums[i+1] == nums[i])
+           {
+            continue;
+           }
+           else if(nums[i+1] - nums[i] == 1)
+           {
+              res++;
+              maxLen = max(maxLen,res);
+           }
+           else
+           {
+              maxLen = max(maxLen,res);
+              res=1;
+           }
+        }
+        return maxLen;
+    }
+};
+
+O(n log n) + O(n) = O(n log n)
+
+**********
