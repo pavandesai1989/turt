@@ -1,0 +1,46 @@
+//https://leetcode.com/problems/find-peak-element/
+
+class Solution {
+public:
+    int findPeakElement(vector<int>& nums) 
+    {
+        int n = nums.size();
+        int l = 0, r = n - 1;
+
+        // We use l < r because:
+        // 1) A peak element is guaranteed to exist.
+        // 2) We are NOT searching for a specific value.
+        // 3) In each iteration, we shrink the range but ALWAYS keep
+        //    at least one valid peak inside [l, r].
+        // 4) The loop ends when l == r, leaving exactly one index,
+        //    which must be a peak.
+        //
+        // Important:
+        // We do NOT eliminate 'mid' when r = mid.
+        // Since mid can still be a peak, we must allow l == r
+        // to be the termination condition (not l > r).
+
+        while (l < r)
+        {
+            int mid = l + (r - l) / 2;
+
+            if (nums[mid] < nums[mid + 1])
+            {
+                // Slope is increasing, so a peak must exist
+                // on the right side (mid cannot be the peak).
+                l = mid + 1;
+            }
+            else
+            {
+                // Slope is decreasing or flat,
+                // so a peak exists on the left side or at mid.
+                // We KEEP mid as a candidate.
+                r = mid;
+            }
+        }
+
+        // When l == r, only one index remains.
+        // Since a peak is guaranteed, this index is the peak.
+        return l;
+    }
+};
