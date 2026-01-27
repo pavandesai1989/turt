@@ -1,1 +1,31 @@
+//https://leetcode.com/problems/group-anagrams/description/
 
+class Solution {
+public:
+//n = number of strings
+//k = average length of each string
+    vector<vector<string>> groupAnagrams(vector<string>& strs) 
+    {
+        if(!strs.size()) return {};
+        vector<vector<string>> res;
+        unordered_map<string,vector<string>> mpp;
+        for(auto& it:strs)//o(n)
+        {
+            string str = it;
+            sort(str.begin(),str.end()); //o(k*logk)
+            mpp[str].push_back(it);
+        }
+        
+        //iterate over map
+        for(auto& ele:mpp) //o(n)
+        {
+            res.push_back(ele.second);
+        }
+        return res;
+    }
+};
+
+//time : o(n) + o(n)*o(k*logk) = o(n)* o(k*logk)
+//space : o(n)
+
+/*“We store n strings of average length k (both as map keys and values), so the total auxiliary space is proportional to the total number of characters, which is O(n·k).”*/
