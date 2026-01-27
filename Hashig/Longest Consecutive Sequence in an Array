@@ -39,38 +39,84 @@ checknextele() → O(n)
 while loop can run up to O(n) times in worst case
 
 Total:o(n3)
+Outer loop      → O(n)
+While loop      → O(n)
+Linear search   → O(n)
+--------------------------------
+Total           → O(n × n × n) = O(n³)
 
 ****************
 class Solution {
 public:
     int longestConsecutive(vector<int>& nums) 
     {
-        int n=nums.size();
+        if(nums.size()==0) return 0;
         if(nums.size()==1) return 1;
-        sort(nums.begin(),nums.end());
-        int res =1;
-        int maxLen=1;
-        for(int i=0;i<n-1;i++)
+
+        int maxlen = 1;
+
+        sort(nums.begin(),nums.end()); //o(n*logn)
+        int cnt=1;
+
+        for(int i=0;i<nums.size()-1;i++) //o(n)
         {
-           if(nums[i+1] == nums[i])
-           {
-            continue;
-           }
-           else if(nums[i+1] - nums[i] == 1)
-           {
-              res++;
-              maxLen = max(maxLen,res);
-           }
-           else
-           {
-              maxLen = max(maxLen,res);
-              res=1;
-           }
+            if(nums[i]==nums[i+1])
+            {
+                continue;
+            }
+            if(nums[i+1]-nums[i] == 1)
+            {
+                cnt++;
+            }
+            else
+            {
+                cnt=1;
+            }
+            maxlen = max(maxlen,cnt);
+
         }
-        return maxLen;
+        return maxlen;
     }
 };
 
-O(n log n) + O(n) = O(n log n)
+//time : o(n) + o(n*logn) = o(n*logn)
 
-**********
+**************
+class Solution {
+public:
+    int longestConsecutive(vector<int>& nums) 
+    {
+        if(nums.size()==0) return 0;
+        int longest = 1; //min 1 is answer
+        unordered_set<int> sett;
+
+        for(auto& ele:nums)
+        {
+            sett.insert(ele);
+        }
+
+        //iterate over the set
+        for(auto& itr:sett)
+        {
+            if(sett.find(itr-1) == sett.end())//this is the start point
+            {
+               int cnt=1;
+               int x=itr;
+
+               while(sett.find(x+1)!=sett.end()) //check for the consecutive sequence
+                {
+                 cnt += 1;
+                 x += 1;
+                }
+                longest = max(longest,cnt);
+            }
+        }
+        return longest;
+    }
+};
+
+- O(n) average
+  (insertion + iteration + sequence counting, each element processed once)
+
+Space Complexity:
+- O(n) for unordered_set
