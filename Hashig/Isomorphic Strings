@@ -1,0 +1,30 @@
+//https://leetcode.com/problems/isomorphic-strings/description/?envType=study-plan-v2&envId=top-interview-150
+
+class Solution {
+public:
+// Time Complexity: O(len)      // len = length of s or t
+// Space Complexity: O(len)     // two hashmaps store character mappings
+    bool isIsomorphic(string s, string t) 
+    {
+        //think of mapping of 1 language to other language chars
+        //we need 2 maps
+        unordered_map<char,int> ms;
+        unordered_map<char,int> mt;
+        int len=s.size();
+
+        for(int i=0;i<len;i++) //o(n)
+        {
+            char ch1 = s[i];
+            char ch2 = t[i];
+
+            if((ms.find(ch1)!=ms.end() && ms[ch1]!=ch2) || (mt.find(ch2)!=mt.end() && mt[ch2]!=ch1))
+            {
+                return false;
+            }
+
+            ms[ch1] = ch2;
+            mt[ch2] = ch1;
+        }
+        return true;
+    }
+};
