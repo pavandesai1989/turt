@@ -22,3 +22,30 @@ public:
         return true;
     }
 };
+
+*****
+class Solution {
+public:
+    // Time Complexity: O(m + n)
+    // Space Complexity: O(1)
+    bool canConstruct(string ransomNote, string magazine) 
+    {
+        vector<int> freq(26,0);//ransomNote and magazine consist of lowercase English letters.
+        for(auto& chr:magazine)
+        {
+            freq[chr-'a']++;
+        }
+
+        for(auto& ele:ransomNote)
+        {
+            if(freq[ele-'a']==0)//vimp first check 
+            {
+                return false;
+            }
+            freq[ele-'a']--;
+        }
+        return true;
+    }
+};
+
+
