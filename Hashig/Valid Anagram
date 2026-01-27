@@ -1,0 +1,36 @@
+//https://leetcode.com/problems/valid-anagram/description/?envType=study-plan-v2&envId=top-interview-150
+
+class Solution {
+public:
+/*
+Count s: O(len_s)
+
+Count t: O(len_t)
+
+Check freq array: O(26) = O(1)
+*/
+    bool isAnagram(string s, string t) 
+    {
+        vector<int> freq(26,0);
+        for(auto& chr:s) //o(lens)
+        {
+           freq[chr-'a']++;
+        }
+
+        //iterate over t
+        for(auto& chr:t) //o(lent)
+        {
+            freq[chr-'a']--;
+        }
+
+        //freq count should 0
+        for(int i=0;i<26;i++)
+        {
+           if(freq[i] !=0 )
+           {
+            return false;
+           }
+        }
+        return true;
+    }
+};
