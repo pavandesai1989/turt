@@ -1,5 +1,66 @@
 https://leetcode.com/problems/permutation-in-string/description/
 
+***brute force****
+class Solution {
+public:
+    bool checkInclusion(string s1, string s2) 
+    {
+        int len1=s1.length();
+        sort(s1.begin(),s1.end()); //sort s1
+
+        for(int i=0;i<s2.length();i++)
+        {
+            string sub = s2.substr(i,len1); //sort substr of s2 of len s1
+            sort(sub.begin(),sub.end());
+            if(sub == s1) return true;
+        }
+        return false;
+    }
+};
+
+O(m log m) + O(n * m log m)
+≈ O(n * m log m)
+
+***** better avoid sorting****
+class Solution {
+public:
+    bool checkInclusion(string s1, string s2) 
+    {
+        //how can i avoid sorting
+        unordered_map<char,int> mpp1;
+        unordered_map<char,int> mpp2;
+
+        for(auto& ele:s1)
+        {
+            mpp1[ele]++;
+        }
+
+        int l1=s1.length();
+        int l2=s2.length();
+
+        for(int i=0;i<=l2-l1;i++)
+        {
+            unordered_map<char,int> mpp2;
+            for(int j=i;j-i<l1;j++)
+            {
+                mpp2[s2[j]]++;
+            }
+
+            if(mpp1 == mpp2)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+};
+
+(l2 − l1 + 1) times  →  O(l2 − l1)
+
+Space = O(l1)
+
+
+********optimal****
 ALGO:
 Algorithm: Sliding Window + HashMap
 Problem
