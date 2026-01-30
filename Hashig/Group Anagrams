@@ -1,0 +1,27 @@
+https://neetcode.io/problems/anagram-groups/question
+
+class Solution {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& strs) 
+    {
+        unordered_map<string,vector<string>> mapp;
+        vector<vector<string>> res;
+        for(auto& ele:strs) //0(n)
+        {
+            string sortedStr = ele;
+            sort(sortedStr.begin(),sortedStr.end()); //0(k*logk)
+            mapp[sortedStr].push_back(ele);
+        }
+
+        for(auto& ele:mapp) //o(n)
+        {
+            res.push_back(ele.second);
+        }
+        return res;
+    }
+};
+
+| Aspect | Complexity     |
+| ------ | -------------- |
+| Time   | O(n * k log k) |
+| Space  | O(n * k)       |
