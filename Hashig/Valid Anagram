@@ -1,5 +1,26 @@
 //https://leetcode.com/problems/valid-anagram/description/?envType=study-plan-v2&envId=top-interview-150
 
+
+*******sorting*******
+class Solution {
+public:
+    bool isAnagram(string s, string t) 
+    {
+        if(s.size() != t.size()) return false;
+        sort(s.begin(),s.end());
+        sort(t.begin(),t.end());
+
+        return s==t;
+    }
+};
+
+
+Time: O(n log n)
+space : o(1) depends on sorting algo 
+Space: O(log n) due to recursion stack of std::sort
+
+***************
+
 class Solution {
 public:
 /*
