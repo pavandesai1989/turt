@@ -60,3 +60,15 @@ public:
         return res;
     }
 };
+
+
+✅ Comparison
+Approach	Time Complexity	Space Complexity	Notes
+Vertical scan	O(n * m)	O(1)	Optimal for LCP problem
+Sorting-based	O(n * m * log n)	O(1) or O(n)	Simpler, but slower; useful if you need strings sorted
+
+💡 Rule of Thumb for Interviews:
+
+Use vertical scan for pure LCP → faster, O(n*m), minimal space.
+
+Use sorting if you also need lexicographic ordering or simplicity.
