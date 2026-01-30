@@ -1,5 +1,13 @@
 //https://leetcode.com/problems/contains-duplicate/description/
 ***brute force******
+this will give time limit exceed as the constriant is 
+1 <= nums.length <= 105
+-109 <= nums[i] <= 109
+
+Time complexity = O(n²)
+
+1 ≤ nums.length ≤ 10^5
+~ (10^5)² = 10^10 comparisons ❌
 
 class Solution {
   public:
@@ -54,3 +62,6 @@ public:
         return false;
     }
 };
+
+time : o(n)
+space:o(n)
