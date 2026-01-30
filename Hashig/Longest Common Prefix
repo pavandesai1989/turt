@@ -1,6 +1,6 @@
 https://neetcode.io/problems/longest-common-prefix/question
 
-*****bruteforce****
+*****OPTIMAL****
 class Solution {
 public:
     string longestCommonPrefix(vector<string>& strs) 
