@@ -1,0 +1,62 @@
+https://neetcode.io/problems/longest-common-prefix/question
+
+*****bruteforce****
+class Solution {
+public:
+    string longestCommonPrefix(vector<string>& strs) 
+    {
+        string str = strs[0];
+        int n=strs.size();
+        for(int i=0;i<str.size();i++) //iterate over the chars of str string
+        {
+            for(int j=1;j<n;j++)
+            {
+                if(i >= strs[j].size() || strs[j][i]!=str[i]) //strs = ["flower", "fl", "flight"]
+                {
+                    return str.substr(0,i);
+                }
+            }
+        }
+        return str;
+    }
+};
+
+time : o(n*m)
+n = no of string 
+m = len of smallest string
+
+
+
+
+****sorting**
+m = number of strings
+
+n = length of the longest string
+
+Reasoning:
+
+Sorting m strings → O(m log m) comparisons
+
+Each comparison → O(n) time (comparing strings character by character)
+
+So total → O(n * m * log m) ✅
+
+
+class Solution {
+public:
+    string longestCommonPrefix(vector<string>& strs) 
+    {
+        sort(strs.begin(),strs.end());
+        string res= "";
+        string first = strs[0];
+        string last = strs[strs.size()-1];
+
+        int minLen = min(first.length(),last.length());
+        for(int i=0;i<minLen;i++)
+        {
+            if(first[i] != last[i]) return res;
+            res += first[i];
+        }
+        return res;
+    }
+};
