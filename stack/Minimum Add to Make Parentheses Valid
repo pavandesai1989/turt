@@ -1,0 +1,52 @@
+https://leetcode.com/problems/minimum-add-to-make-parentheses-valid/description/
+
+***using stack**
+class Solution {
+public:
+    int minAddToMakeValid(string s) 
+    {
+        stack<char> st;
+        for(auto& ch:s)
+        {
+            if(!st.empty() && st.top()=='(' && ch==')')
+            {
+                st.pop(); //got matching
+            }
+            else
+            {
+                st.push(ch);
+            }
+        }
+        return st.size();
+    }
+};
+
+time : o(n) and space: o(n)
+
+*******optimal***
+Track unmatched opening brackets and count extra closing brackets; total insertions are their sum.
+
+class Solution {
+public:
+    int minAddToMakeValid(string s) 
+    {
+        int open=0;
+        int need=0;
+        for(auto& ch:s)
+        {
+            if(ch=='(')
+            {
+               open++;
+            }
+            else
+            {
+                if(open>0) open--;
+                else
+                {
+                    need++;
+                }
+            }
+        }
+        return open+need;
+    }
+};
