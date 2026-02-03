@@ -1,0 +1,81 @@
+//https://leetcode.com/problems/product-of-the-last-k-numbers/description/
+
+class ProductOfNumbers {
+public:
+    vector<int> vec;
+    ProductOfNumbers() 
+    {
+    }
+    
+    void add(int num) 
+    {
+       vec.push_back(num);
+    }
+    
+    int getProduct(int k) 
+    {
+        int prod = 1;
+        int idx = vec.size()-k;
+        for(int i=idx;i<vec.size();i++)
+        {
+            prod *= vec[i];
+        }
+        
+        return prod;
+    }
+};
+
+/**
+ * Your ProductOfNumbers object will be instantiated and called as such:
+ * ProductOfNumbers* obj = new ProductOfNumbers();
+ * obj->add(num);
+ * int param_2 = obj->getProduct(k);
+ */
+********prefix ***
+“Keep prefix products since the last zero, reset on zero, divide to get last k products — O(1) per operation.”
+
+class ProductOfNumbers {
+public:
+    vector<int> prefixProd;
+    ProductOfNumbers() 
+    {
+    }
+    
+    void add(int num) 
+    {
+       if(num==0)
+       {
+        prefixProd.clear();
+       }
+       else
+       {
+          if(prefixProd.empty())
+          {
+            prefixProd.push_back(num);
+          }
+          else
+          {
+            prefixProd.push_back(prefixProd.back()*num);
+          }
+       }
+    }
+    
+    int getProduct(int k) 
+    {
+        int n=prefixProd.size();
+        if(k>n) return 0; //handling the zero case
+
+        if(k==n)
+        {
+            return prefixProd.back();
+        }
+        return prefixProd.back()/prefixProd[n-k-1];
+    }
+};
+
+/**
+ * Your ProductOfNumbers object will be instantiated and called as such:
+ * ProductOfNumbers* obj = new ProductOfNumbers();
+ * obj->add(num);
+ * int param_2 = obj->getProduct(k);
+ */
