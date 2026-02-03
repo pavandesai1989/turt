@@ -1,0 +1,58 @@
+https://leetcode.com/problems/decode-string/description/
+
+class Solution {
+public:
+    string decodeString(string s) 
+    {
+        stack<string> strstack;
+        stack<int> intstack;
+        int num=0; //can be more than single digit 
+
+        for(auto& ch:s)
+        {
+            if(isdigit(ch))
+            {
+               num = num*10 + (ch-'0'); //convert ch to integer
+            }
+            else if(ch == '[')
+            {
+                //push number
+                intstack.push(num);
+                strstack.push("[");
+                num=0; //reset
+            }
+            else if(ch == ']')
+            {
+                //pop till you get opening
+                string tmp="";
+                while(!strstack.empty() && strstack.top()!="[")
+                {
+                   tmp = strstack.top() + tmp; //vimp order 
+                   strstack.pop();
+                }
+                strstack.pop(); //pop the [ bracket
+
+                // get the number from int stack
+                int k = intstack.top(); intstack.pop();
+
+                // repeat the substring k times
+                string repeated = "";
+                for(int i = 0; i < k; i++) repeated += tmp;
+
+                strstack.push(repeated); // push back to stack
+
+            }
+            else {
+                strstack.push(string(1, ch)); //char to string
+            }
+        }
+
+        string res="";
+        while(!strstack.empty())
+        {
+            res = strstack.top() + res; //vimp order
+            strstack.pop();
+        }
+        return res;
+    }
+};
