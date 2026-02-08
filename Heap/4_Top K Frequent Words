@@ -1,1 +1,49 @@
 //https://leetcode.com/problems/top-k-frequent-words/description/
+
+class Solution {
+public:
+    struct cmp {
+        bool operator()(const pair<int,string>& a,
+                        const pair<int,string>& b) const {
+            if (a.first == b.first)
+                return a.second < b.second;  // lex larger should stay
+            return a.first > b.first;   // min-heap by frequency
+        }
+    };
+    vector<string> topKFrequent(vector<string>& words, int k) 
+    {       
+        unordered_map<string,int> freq;
+        for(auto& ele:words) //time:o(n) and space:o(n)
+        {
+            freq[ele]++;
+        }
+
+        //sort based on freq as key and ele as second
+        priority_queue< pair<int,string>,vector< pair<int,string> >,cmp> minheap;
+
+        for(auto& ele:freq) //time:o(n*logk)
+        {
+            minheap.push({ele.second,ele.first});
+            if(minheap.size() > k) minheap.pop();
+        }
+
+        vector<string> res(k);
+        int idx=k-1;
+        while(!minheap.empty()) //time: 0(k)
+        {
+            res[idx--] = minheap.top().second;
+            minheap.pop();
+        }
+
+        
+        return res;
+    }
+};
+
+O(n)        → frequency map
+O(U log k)  → heap (U = unique words)
+O(k)        → output
+
+
+O(U) map + O(k) heap
+
