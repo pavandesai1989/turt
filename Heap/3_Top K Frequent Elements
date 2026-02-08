@@ -1,0 +1,43 @@
+//https://leetcode.com/problems/top-k-frequent-elements/
+
+class Solution {
+public:
+    vector<int> topKFrequent(vector<int>& nums, int k) 
+    {
+        vector<int> res;
+        unordered_map<int,int> freq;
+        //we need freq store freq in map.we just need freq. order does not matter
+        for(auto& ele:nums) //time : o(n) and space: o(n)
+        {
+            freq[ele]++;
+        }
+        
+        //we need top k freq ele.create minheap based on freq as first ele and ele as second in pair.
+        //as we need heap based on the freq not the ele
+        priority_queue< pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> minheap;
+        for(auto& ele: freq) //time o(n*logk)
+        {
+            minheap.push({ele.second,ele.first});
+            if(minheap.size() > k) minheap.pop();
+        }
+
+        while(!minheap.empty()) //o(k)
+        {
+           res.push_back(minheap.top().second);
+           minheap.pop();
+        }
+        return res;   
+    }
+};
+
+/*
+n = total elements
+U = number of unique elements
+
+O(n)        → building frequency map
+O(U log k)  → pushing into heap
+O(k)        → extracting result
+
+O(U)  → frequency map
+O(k)  → heap
+*/
