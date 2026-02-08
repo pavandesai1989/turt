@@ -1,0 +1,21 @@
+https://leetcode.com/problems/kth-largest-element-in-an-array/description/
+
+
+class Solution {
+public:
+    int findKthLargest(vector<int>& nums, int k) 
+    {
+       //min heap
+       priority_queue<int,vector<int>,greater<int>> minheap;
+       for(auto& ele:nums)
+       {
+          minheap.push(ele);
+          if(minheap.size() > k)minheap.pop();
+       } 
+       return minheap.top();
+    }
+};
+
+n × log k = O(n log k)
+
+The space complexity is O(k) because the min heap stores at most k elements at any time.
