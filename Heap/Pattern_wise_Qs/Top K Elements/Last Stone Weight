@@ -1,0 +1,28 @@
+//https://leetcode.com/problems/last-stone-weight/
+
+class Solution {
+public:
+    int lastStoneWeight(vector<int>& stones) 
+    {
+        if(stones.size() == 1) return stones[0];
+
+        //create max heap as we need top heaviest stones
+        priority_queue<int> maxheap;
+        for(auto& ele:stones) //time: o(n) * o(logn)
+        {
+            maxheap.push(ele);
+        }
+
+        int y=0,x=0;
+        while(maxheap.size() > 1) //time o(n) * logn(n) //space:o(n)
+        { 
+           y = maxheap.top(); maxheap.pop();                     
+           x = maxheap.top(); maxheap.pop();
+           if(x!=y)
+           {
+             maxheap.push(y-x);
+           }
+        }
+        return !maxheap.empty() ? maxheap.top() : 0;
+    }
+};
