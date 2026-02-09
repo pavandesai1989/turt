@@ -1,0 +1,39 @@
+https://www.geeksforgeeks.org/problems/minimum-cost-of-ropes-1587115620/1
+
+class Solution {
+  public:
+    int minCost(vector<int>& arr) 
+    {
+        if(arr.size()==1) return 0;
+        
+        //create min heap
+        priority_queue<int,vector<int>,greater<int>> minheap;
+        
+        for(auto& ele:arr) //time : o(n* logn) //space:o(n)
+        {
+            minheap.push(ele);
+        }
+        
+        int cost=0;
+        while(!minheap.empty()) //time o(n*logn)
+        {
+            int rope1 = 0;
+            int rope2 = 0;
+            
+            rope1 = minheap.top();
+            minheap.pop();
+            
+            if(minheap.empty()) break;
+            rope2 = minheap.top();
+            minheap.pop();
+            
+            cost += rope1+rope2;
+            minheap.push(rope1+rope2);
+        }
+        return cost;
+        
+    }
+};
+
+Time Complexity: O(n log n)
+Space Complexity: O(n)
