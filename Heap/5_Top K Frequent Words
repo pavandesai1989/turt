@@ -1,0 +1,61 @@
+https://www.geeksforgeeks.org/problems/word-with-maximum-frequency0120/1
+
+class Solution {
+  public:
+    class custcmp
+    {
+      public:
+      bool operator()(const tuple<int,int,string>& p1,const tuple<int,int,string>& p2)const
+      {
+         int freq1 = get<0>(p1);
+         int freq2 = get<0> (p2);
+         
+         if(freq1 != freq2) return freq1 < freq2;
+         
+         return get<1>(p1) > get<1>(p2);
+      }
+    };
+    
+    string maximumFrequency(string& s) 
+    {
+        //we need freq use map
+        unordered_map<string,int> freq;
+        unordered_map<string,int> firstPos;
+        int n=s.size();
+        string str="";
+        int idx=0;
+        for(int i=0;i<n;i++)
+        {
+            if(s[i]!=' ')
+            {
+                
+                str += s[i]; 
+            }
+            else
+            {
+                if(firstPos.find(str) == firstPos.end())
+                {
+                    firstPos[str] = idx++;
+                }
+                freq[str]++;
+                str.clear();
+            }
+        }
+        //add last string imp point 
+        if(str !="") freq[str]++;
+        if(firstPos.find(str) == firstPos.end())
+        {
+            firstPos[str] = idx++;
+        }
+
+        //we need max create max heap
+        priority_queue<tuple<int,int,string>, vector<tuple<int,int,string>>,custcmp> maxheap;
+        
+        for(auto& ele:freq)
+        {
+            maxheap.push({ele.second,firstPos[ele.first],ele.first});
+        }
+        auto top = maxheap.top();
+        return get<2>(top) + " " + to_string(get<0>(top));
+    }
+};
