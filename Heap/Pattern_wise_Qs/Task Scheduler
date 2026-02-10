@@ -1,0 +1,43 @@
+//https://leetcode.com/problems/task-scheduler/description/
+
+class Solution {
+public:
+    int leastInterval(vector<char>& tasks, int n) 
+    {
+        unordered_map<char,int> freq;
+        for (char ch : tasks)
+            freq[ch]++;
+
+        priority_queue<int> maxheap;
+        for (auto &p : freq)
+            maxheap.push(p.second);
+
+        queue<pair<int,int>> q; // {remainingCount, readyTime}
+        int time = 0;
+
+        while (!maxheap.empty() || !q.empty())
+        {
+            time++;
+
+            // unlock cooldown tasks FIRST
+            while (!q.empty() && q.front().second <= time)
+            {
+                maxheap.push(q.front().first);
+                q.pop();
+            }
+
+            // execute task
+            if (!maxheap.empty())
+            {
+                int cnt = maxheap.top();
+                maxheap.pop();
+                cnt--;
+
+                if (cnt > 0)
+                    q.push({cnt, time + n + 1});
+            }
+        }
+
+        return time;
+    }
+};
