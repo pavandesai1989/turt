@@ -3,32 +3,29 @@
 class Solution {
 public:
     vector<vector<int>> kClosest(vector<vector<int>>& points, int k) 
-    {
-        vector<vector<int>> res;
-        priority_queue < pair<double,vector<int> >, 
-                        vector< pair<double,vector<int> >  >, 
-                        less< pair<double,vector<int> >>   >  minheap;
-        /*note to take double for the sqrt  */
+    {        
+        //closest points means min dist from origin implies min values
+        //we need only k elements better use max heap os size k
 
-        for(int i=0;i<points.size();i++) //time is o(n) * (logk) //space o(k)
+        priority_queue< pair < double,pair< int,int> > > maxheap;
+
+        for(auto& ele:points)
         {
-            int x = points[i][0];
-            int y = points[i][1];
+            int x = ele[0];
+            int y = ele[1];
 
-            vector<int> vec({x,y});
-            double val = sqrt((x*x) + (y*y));
+            double sqrtval = sqrt(x*x + y*y);
+            maxheap.push({sqrtval,{x,y}});
 
-            minheap.push(make_pair(val,vec));
-            if(minheap.size() > k)minheap.pop();
+            if(maxheap.size() > k) maxheap.pop();
         }
 
-        while(!minheap.empty()) //o(k)* log(k)
+        vector<vector<int>> res(k);
+        int idx = k-1;
+        while(!maxheap.empty())
         {
-            int x = minheap.top().second[0];
-            int y = minheap.top().second[1];
-
-            res.push_back({x,y});
-            minheap.pop();
+            res[idx--] = {maxheap.top().second.first,maxheap.top().second.second};
+            maxheap.pop();
         }
         return res;
     }
