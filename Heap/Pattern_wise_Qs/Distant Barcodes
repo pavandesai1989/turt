@@ -1,0 +1,45 @@
+//https://leetcode.com/problems/distant-barcodes/description/
+
+class Solution {
+public:
+    vector<int> rearrangeBarcodes(vector<int>& barcodes) 
+    {
+        vector<int> res;
+        //map to store the freq
+        unordered_map<int,int> freq;
+        for(auto& ele:barcodes)
+        {
+            freq[ele]++;
+        }
+
+        //max heap based on freq
+        priority_queue<pair<int,int>> maxheap;
+        for(auto& ele:freq)
+        {
+           maxheap.push({ele.second,ele.first});
+        }
+
+        pair<int,int> prev = {0,0}; //freq ele
+
+        while(!maxheap.empty())
+        {
+            //push present ele to res
+            auto curr = maxheap.top();
+            maxheap.pop();
+
+            //reduce count
+            curr.first--;
+            res.push_back(curr.second);
+
+            if(prev.first>0)
+            {
+                maxheap.push(prev);
+            }
+
+            prev=curr;
+
+        }
+        return res;
+
+    }
+};
