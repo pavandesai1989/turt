@@ -1,0 +1,58 @@
+//https://leetcode.com/problems/rearrange-string-k-distance-apart/description/
+
+class Solution {
+public:
+    string rearrangeString(string s, int k) 
+    {
+        string res="";
+        unordered_map<char,int> freq;
+        for(auto& ele:s)
+        {
+            freq[ele]++;
+        }
+
+        priority_queue<pair<int,char>> maxheap;
+        for(auto& ele:freq)
+        {
+            maxheap.push({ele.second,ele.first});
+        }
+
+        queue<tuple<char,int,int>> cooldown; //char,freq,position
+        int pos=0;
+
+        while(!maxheap.empty() || !cooldown.empty())
+        {
+            while(!cooldown.empty() && get<2>(cooldown.front()) <= pos)
+            {
+                auto top = cooldown.front();
+                //push to maxheap
+                maxheap.push({get<1>(top),get<0>(top)});
+                cooldown.pop();
+
+            }
+
+            // key fix: no character can be placed now
+            if(maxheap.empty()) return "";
+
+            if(!maxheap.empty())
+            {                
+                auto top=maxheap.top();
+                maxheap.pop();
+
+                res += top.second;
+                pos++;
+                //reduce count
+                int cnt = top.first;
+                cnt--;
+
+                if(cnt>0)
+                {
+                    cooldown.push({top.second,cnt,pos+k-1});//imp
+                }
+            }
+
+        }
+        if(res.size() != s.size()) return "";
+        return res;
+    }
+};
