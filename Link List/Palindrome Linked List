@@ -1,0 +1,105 @@
+//https://leetcode.com/problems/palindrome-linked-list/
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* reverse(ListNode*& head)
+    {
+         ListNode* prev = nullptr;
+         ListNode* next = nullptr;
+         ListNode* curr = head;
+
+         while(curr!=nullptr)
+         {
+            //store next
+            next = curr->next;
+
+            //point curr to prev
+            curr->next = prev;
+
+            //curr becomes prev 
+            prev = curr;
+
+            //next becomes curr
+            curr = next;
+         }
+         return prev;
+    }
+
+    bool isPalindrome(ListNode* head) 
+    {
+        if(!head || head->next==nullptr) return true;
+        //find middle of the link list
+        ListNode* slow = head;
+        ListNode* fast = head;
+
+        while(fast && fast->next!=nullptr) //time: o(n)
+        {
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+
+        //if odd length
+        if(fast!=nullptr)//imp case 
+        {
+            slow = slow->next;
+        }
+
+        //slow points to middle of link list
+        slow = reverse(slow);
+        ListNode* start = head;
+
+        while(start && slow)
+        {
+            if(start->val != slow->val) return false;
+            start = start->next;
+            slow = slow->next;
+        }  
+
+        return true;
+
+    }
+};
+
+**********stack********
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    bool isPalindrome(ListNode* head) 
+    {
+        stack<ListNode*> st;
+        ListNode* curr = head;
+        while(curr!=nullptr)
+        {
+            st.push(curr);
+            curr=curr->next;
+        }
+
+        ListNode* start = head;
+        while(!st.empty())
+        {
+            if(st.top()->val != start->val) return false;
+            st.pop();
+            start = start->next;
+        }
+        return true;
+    }
+};
