@@ -1,0 +1,31 @@
+//https://leetcode.com/problems/final-array-state-after-k-multiplication-operations-i/description/
+
+class Solution {
+public:
+    vector<int> getFinalState(vector<int>& nums, int k, int multiplier) 
+    {
+        vector<int> res(nums.size(),0);
+        //value index
+        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> minheap;
+        for(int idx=0;idx<nums.size();idx++)
+        {
+            minheap.push({nums[idx],idx});
+        }
+
+        while(!minheap.empty() && k>0)
+        {
+            auto top = minheap.top();
+            minheap.pop();
+            minheap.push({(top.first)*multiplier,top.second});
+            k--;
+        }
+        
+        int idx=0;
+        while(!minheap.empty())
+        {
+            res[minheap.top().second] = minheap.top().first;
+            minheap.pop();
+        }
+        return res;
+    }
+};
