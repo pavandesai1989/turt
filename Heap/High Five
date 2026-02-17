@@ -1,0 +1,35 @@
+//https://leetcode.com/problems/high-five/description/
+
+class Solution {
+public:
+    vector<vector<int>> highFive(vector<vector<int>>& items) 
+    {
+        vector<vector<int>> res;
+        unordered_map<int,vector<int>> mpp;
+        for(auto& vec:items)
+        {
+            mpp[vec[0]].push_back(vec[1]);
+        }
+
+        for(auto& it:mpp)
+        {
+            priority_queue<int,vector<int>,greater<int>> minheap;
+            for(auto& ele:it.second)
+            {
+                minheap.push(ele);
+                if(minheap.size() > 5) minheap.pop();
+            }
+
+            //find avg            
+            int sum=0;
+            while(!minheap.empty())
+            {
+               sum += minheap.top();
+               minheap.pop();
+            }
+            res.push_back({it.first,sum/5});
+        }
+        sort(res.begin(),res.end());
+        return res;
+    }
+};
