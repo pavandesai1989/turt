@@ -1,0 +1,147 @@
+//https://leetcode.com/problems/add-two-numbers-ii/description/
+
+***
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* reverse(ListNode* head)
+    {
+        ListNode* next = nullptr;
+        ListNode* prev = nullptr;
+        ListNode* curr = head;
+
+        while(curr)
+        {
+           //store the next node
+           next = curr->next;
+
+           //point curr to prev
+           curr->next = prev;
+
+           //curr becomes prev
+            prev = curr;
+
+           //nect becomes curr
+           curr = next;
+        }
+        return prev;
+    }
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) 
+    {
+        ListNode* res = nullptr;
+        ListNode* curr = nullptr;
+
+        if(!l1) return l2;
+        if(!l2) return l1;
+
+        l1 = reverse(l1);
+        l2 = reverse(l2);
+
+        int carry = 0;       
+
+        while(l1 || l2 || carry)
+        {
+           int sum = 0;
+           if(l1)
+           {
+             sum += l1->val;
+             l1 = l1->next;
+           }
+           if(l2)
+           {
+             sum += l2->val;
+             l2 = l2->next;
+           }
+
+           sum += carry;
+           carry = sum >=10 ? 1 : 0;
+           sum = sum %10;
+
+           if(res ==nullptr)
+           {
+              res = new ListNode(sum);
+              curr = res;
+           }
+           else
+           {
+              curr->next = new ListNode(sum);
+              curr = curr->next;
+           }
+        }
+        return reverse(res);
+    }
+};
+
+
+*******using stack***
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) 
+    {
+        ListNode* res = nullptr;
+        ListNode* curr = nullptr;
+
+        if(!l1) return l2;
+        if(!l2) return l1;
+
+        stack<int> s1,s2;
+
+        while(l1)
+        {
+            s1.push(l1->val);
+            l1 = l1->next;
+        }
+
+        while(l2)
+        {
+            s2.push(l2->val);
+            l2 = l2->next;
+        }
+
+        int carry = 0;       
+
+        while(!s1.empty() || !s2.empty() || carry)
+        {
+           int sum = 0;
+           if(!s1.empty())
+           {
+             sum += s1.top();
+             s1.pop();
+           }
+           if(!s2.empty())
+           {
+             sum += s2.top();
+             s2.pop();
+           }
+
+           sum += carry;
+           carry = sum >=10 ? 1 : 0;
+           sum = sum %10;
+
+           ListNode* node = new ListNode(sum);
+            node->next = res;
+            res = node;
+
+        }
+        return res;
+    }
+};
