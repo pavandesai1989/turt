@@ -1,0 +1,28 @@
+//https://leetcode.com/problems/minimum-cost-to-connect-sticks/description/
+
+class Solution {
+public:
+    int connectSticks(vector<int>& sticks) 
+    {
+        int mincost=0;
+        priority_queue<int,vector<int>,greater<int>> minheap;
+        for(auto& ele:sticks)
+        {
+            minheap.push(ele);
+        }
+
+        while(minheap.size()!=1)
+        {
+            int ele1 = minheap.top();
+            minheap.pop();
+
+            int ele2 =minheap.top();
+            minheap.pop();
+
+            mincost += ele1 + ele2;   
+
+            minheap.push(ele1+ele2);
+        }
+        return mincost;
+    }
+};
