@@ -1,0 +1,82 @@
+//https://leetcode.com/problems/plus-one-linked-list/description/
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* reverse(ListNode* head)
+    {
+        ListNode* next = nullptr;
+        ListNode* prev = nullptr;
+        ListNode* curr = head;
+
+        while(curr)
+        {
+           //store the next node
+           next = curr->next;
+
+           //point curr to prev
+           curr->next = prev;
+
+           //curr becomes prev
+            prev = curr;
+
+           //nect becomes curr
+           curr = next;
+        }
+        return prev;
+    }
+    ListNode* plusOne(ListNode* head) 
+    {
+        if(!head) return nullptr;
+        ListNode* newhead = reverse(head);
+        ListNode* curr = newhead;
+        int carry=0;
+        ListNode* res = nullptr;
+
+        while(newhead)
+        {
+            int sum = 0;
+            if(!res) 
+            {
+                sum = newhead->val + 1;
+            }
+            else
+            {
+                sum = newhead->val;
+            }
+
+            //add carry
+            sum += carry;
+            //update carry
+            carry = (sum >=10 ) ? 1 : 0;
+            sum = sum%10;
+
+            if(!res)
+            {
+                res = new ListNode(sum);
+                curr = res;
+            }
+            else
+            {
+                curr->next = new ListNode(sum); 
+                curr = curr->next; //imp step              
+            }
+             newhead = newhead->next;
+
+        }
+        if(carry != 0)//imp edge case
+        {
+            curr->next = new ListNode(carry);
+        }
+        return reverse(res);
+    }
+};
