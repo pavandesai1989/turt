@@ -1,0 +1,184 @@
+==============================
+1) MIN HEAP OF SIZE K
+==============================
+
+Used in:
+- Kth Largest in Array
+- Kth Largest in Stream
+
+When to think:
+- “Kth largest”
+- “Top K elements”
+- Don’t need full sorting
+
+Template:
+- Use min heap
+- Push element
+- If heap.size() > k → pop()
+- Answer = heap.top()
+
+Time: O(n log k)
+
+Key Idea:
+Smallest among top K stays at top.
+
+
+==============================
+2) TWO HEAP PATTERN
+==============================
+
+Used in:
+- Median from Data Stream
+
+When to think:
+- Running median
+- Dynamic insertion + median
+
+Structure:
+- maxHeap → left half
+- minHeap → right half
+
+Rules:
+- maxHeap.size() >= minHeap.size()
+- maxHeap.top() <= minHeap.top()
+
+Median:
+- If equal size → average
+- Else → maxHeap.top()
+
+Key Idea:
+Insert into maxHeap first, then balance.
+
+
+==============================
+3) FREQUENCY + HEAP
+==============================
+
+Used in:
+- Top K Frequent Words
+
+When to think:
+- Frequency counting
+- Custom sorting
+- Tie breaking rules
+
+Steps:
+- Count frequency using map
+- Push into heap with comparator
+- Maintain size k
+
+Key Idea:
+Comparator must handle:
+- Frequency
+- Lexicographic order (if tie)
+
+
+==============================
+4) OPTIMAL MERGE PATTERN
+==============================
+
+Used in:
+- Minimum Cost to Connect Sticks
+
+When to think:
+- Combine elements with minimum total cost
+- Merge files / sticks / ropes
+
+Template:
+- Push all into min heap
+- While heap.size() > 1:
+    a = pop()
+    b = pop()
+    cost += a + b
+    push(a + b)
+
+Time: O(n log n)
+
+Key Idea:
+Always combine two smallest first.
+
+
+==============================
+5) GREEDY + MAX HEAP (SCHEDULING)
+==============================
+
+Used in:
+- Task Scheduler
+
+When to think:
+- Cooling time
+- Most frequent task first
+- Scheduling with constraints
+
+Idea:
+- Count frequencies
+- Use max heap
+- Pick most frequent
+- Decrease count
+- Reinsert after cooldown
+
+Key Idea:
+Most frequent task controls idle time.
+
+
+==============================
+6) REARRANGEMENT USING HEAP
+==============================
+
+Used in:
+- Reorganize String
+
+When to think:
+- No two adjacent same
+- Distance constraint
+
+Important Check:
+- If maxFreq > (n + 1) / 2 → impossible
+
+Template:
+- Use max heap
+- Pick most frequent char
+- Append
+- Decrease count
+- Hold previous char before pushing back
+
+Key Idea:
+Never reuse same char immediately.
+
+
+==============================
+7) K SMALLEST PAIRS / K-WAY EXPANSION
+==============================
+
+Used in:
+- Find K Pairs with Smallest Sums
+
+When to think:
+- Two sorted arrays
+- K smallest combinations
+- Avoid n^2 brute force
+
+Idea:
+- Push (i,0) initially
+- When popping (i,j)
+  push (i,j+1)
+- Maintain visited or controlled pushing
+
+Time: O(k log k)
+
+Key Idea:
+Expand smallest frontier only.
+
+
+==============================
+HEAP PATTERN RECOGNITION QUICK CHECK
+==============================
+
+If question says:
+- “Kth largest” → Min heap size k
+- “Median” → Two heaps
+- “Minimum combine cost” → Min heap greedy
+- “Most frequent first” → Max heap
+- “No adjacent same” → Max heap + greedy
+- “K smallest pairs” → K-way expansion
+- “Streaming data” → Fixed size heap
