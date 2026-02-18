@@ -1,0 +1,123 @@
+//https://leetcode.com/problems/longest-happy-string/description/
+
+****
+class Solution {
+public:
+    string longestDiverseString(int a, int b, int c) 
+    {
+        string res="";
+        priority_queue<pair<int,char>> maxheap;
+        if(a>0) maxheap.push({a,'a'});
+        if(b>0) maxheap.push({b,'b'});
+        if(c>0) maxheap.push({c,'c'});
+
+        int conti_occu = 0;
+        char prev = '$';
+
+        while(!maxheap.empty())
+        {
+            auto top = maxheap.top();
+            maxheap.pop();
+
+            if(conti_occu == 2 && prev == top.second)
+            {
+                if(maxheap.empty()) break;
+
+                auto top2 = maxheap.top();
+                maxheap.pop();
+
+                res += top2.second;
+
+                conti_occu = 1; //as its new char now
+                prev = top2.second;
+
+                maxheap.push(top); //no reduce in cnt as not used
+
+                int cnt = top2.first-1;
+                if(cnt > 0)
+                    maxheap.push({cnt,top2.second});
+            }
+            else
+            {
+                res += top.second;
+                if(prev == top.second)
+                {
+                    conti_occu++;
+                }
+                else
+                {
+                    conti_occu=1;
+                }
+
+                prev = top.second;
+                int cnt = top.first-1;;
+                //reduce count
+                if(cnt>0)
+                {
+                    maxheap.push({cnt,top.second});
+                }                
+            }
+
+        }
+        return res;
+    }
+};*****
+
+avoid uusing variables
+
+class Solution {
+public:
+    string longestDiverseString(int a, int b, int c) 
+    {
+        string res = "";
+
+        // Same as yours: max heap of {count, char}
+        priority_queue<pair<int,char>> maxheap;
+
+        if(a > 0) maxheap.push({a, 'a'});
+        if(b > 0) maxheap.push({b, 'b'});
+        if(c > 0) maxheap.push({c, 'c'});
+
+        while(!maxheap.empty())
+        {
+            auto [count1, ch1] = maxheap.top();
+            maxheap.pop();
+
+            // 🔥 KEY DIFFERENCE:
+            // Instead of tracking prev + conti_occu,
+            // we directly check last 2 characters of result.
+            if(res.size() >= 2 &&
+               res.back() == ch1 &&
+               res[res.size()-2] == ch1)
+            {
+                // If adding ch1 makes 3 consecutive,
+                // we try second largest.
+                if(maxheap.empty())
+                    break;
+
+                auto [count2, ch2] = maxheap.top();
+                maxheap.pop();
+
+                res += ch2;
+                count2--;
+
+                if(count2 > 0)
+                    maxheap.push({count2, ch2});
+
+                // push first char back unchanged
+                maxheap.push({count1, ch1});
+            }
+            else
+            {
+                // Safe to use most frequent char
+                res += ch1;
+                count1--;
+
+                if(count1 > 0)
+                    maxheap.push({count1, ch1});
+            }
+        }
+
+        return res;
+    }
+};
