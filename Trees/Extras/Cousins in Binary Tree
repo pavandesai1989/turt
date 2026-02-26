@@ -1,0 +1,44 @@
+//https://leetcode.com/problems/cousins-in-binary-tree/description/
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* parentX = nullptr;
+    TreeNode* parentY = nullptr; 
+    int DepthX = 0;
+    int DepthY = 0;
+
+    void dfs(TreeNode* root,TreeNode* parent,int depth,int x,int y)
+    {
+       if(!root) return;
+       if(root->val == x)
+       {
+        parentX = parent;
+        DepthX = depth;
+       }
+
+       if(root->val == y)
+       {
+        parentY = parent;
+        DepthY = depth;
+       }
+
+       dfs(root->left,root,depth+1,x,y);
+       dfs(root->right,root,depth+1,x,y);
+    }
+    bool isCousins(TreeNode* root, int x, int y) 
+    {
+        dfs(root,nullptr,0,x,y);
+        return DepthX == DepthY && parentX != parentY;
+    }
+};
