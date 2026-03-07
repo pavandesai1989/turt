@@ -1,0 +1,89 @@
+//https://www.naukri.com/code360/problems/subset-sum-equal-to-k_1550954
+
+***recursion***
+#include <bits/stdc++.h> 
+bool helper(int idx,vector<int> &arr,int n,int target)
+{
+   //base case
+   if(target == 0) return true;
+   if(idx == 0) return arr[idx]==target;
+   
+   bool notpick = helper(idx-1,arr,n,target);
+
+   bool pick = false;
+   if(target>=arr[idx])
+   {
+      pick = helper(idx-1,arr,n,target-arr[idx]);
+   }
+   return pick || notpick;
+}
+bool subsetSumToK(int n, int k, vector<int> &arr) 
+{
+    return helper(n-1,arr,n,k);
+}
+
+*********memoization****
+#include <bits/stdc++.h> 
+bool helper(int idx,vector<int> &arr,int n,int target,
+            vector<vector<int>>& dp)
+{
+   //base case
+   if(target == 0) return true;
+   if(idx == 0) return arr[idx]==target;
+   
+   if(dp[idx][target] != -1)
+   {
+      return dp[idx][target];
+   }
+   bool notpick = helper(idx-1,arr,n,target,dp);
+
+   bool pick = false;
+   if(target>=arr[idx])
+   {
+      pick = helper(idx-1,arr,n,target-arr[idx],dp);
+   }
+   return dp[idx][target] = pick || notpick;
+}
+bool subsetSumToK(int n, int k, vector<int> &arr) 
+{
+   vector<vector<int>> dp(n+1,vector<int>(k+1,-1));
+   return helper(n-1,arr,n,k,dp);
+}
+
+
+******tabulation****
+class Solution {
+  public:
+    bool isSubsetSum(vector<int>& arr, int k) 
+    {
+        int n=arr.size();
+        vector<vector<int>> dp(n,vector<int>(k+1,0));
+       //base case is if target 0 return treu
+       for(int i=0;i<n;i++)
+       {
+          dp[i][0]=1;
+       }
+
+       // arr = [8,3,4]  k = 6  if not there? it tries to access dp[0][8] causing excpetion******
+       if(arr[0]<=k)  ///vimp check use case  
+          dp[0][arr[0]] = 1;
+    
+       for(int i=1;i<n;i++)
+       {
+          for(int tar=1;tar<=k;tar++)
+          {
+             bool notpick = dp[i-1][tar];
+             bool pick = false;
+             if(arr[i]<=tar)
+             {
+                pick = dp[i-1][tar-arr[i]];
+             }
+    
+             dp[i][tar] = pick || notpick;
+          }
+       }
+    
+       return dp[n-1][k];
+        
+    }
+};
