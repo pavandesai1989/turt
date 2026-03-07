@@ -1,0 +1,65 @@
+//https://leetcode.com/problems/partition-equal-subset-sum/description/
+
+***recursion***
+class Solution {
+public:
+    bool helper(int idx,int target,vector<int>& nums)
+    {
+       //base case
+       if(target==0) return true;
+       if(idx==0) return nums[0]==target;
+
+       bool notpick = helper(idx-1,target,nums);
+       bool pick=false;
+
+       if(target>=nums[idx])
+       {
+         pick = helper(idx-1,target-nums[idx],nums);
+       }
+       return pick || notpick;
+    }
+    bool canPartition(vector<int>& nums) 
+    {
+        int totalsum = 0;
+        for(auto ele:nums) totalsum+=ele;
+        if(totalsum%2 !=0) return false;
+
+        return helper(nums.size()-1,totalsum/2,nums);
+    }
+};
+
+*******memoization***
+class Solution {
+public:
+    int helper(int idx,int target,vector<int>& nums,vector<vector<int>>& dp)
+    {
+       //base case
+       if(target==0) return dp[idx][target]=1;//imp fo fill
+       if(idx==0) return dp[idx][target]=(nums[0]==target); //imp to fill full dp vector
+
+       if(dp[idx][target]!=-1) return dp[idx][target];
+
+       int notpick = helper(idx-1,target,nums,dp);
+       int pick=false;
+
+       if(target>=nums[idx])
+       {
+         pick = helper(idx-1,target-nums[idx],nums,dp);
+       }
+       return dp[idx][target]=pick || notpick;
+    }
+    bool canPartition(vector<int>& nums) 
+    {
+        int totalsum = 0;
+        int n=nums.size();
+        for(auto ele:nums) totalsum+=ele;
+        if(totalsum%2 !=0) return false;
+        int tar = totalsum/2;
+
+        vector<vector<int>> dp(n,vector<int>(tar+1,-1));
+        return helper(nums.size()-1,tar,nums,dp);
+        //return dp[n-1][tar];
+    }
+};
+
+**********tabulation***
