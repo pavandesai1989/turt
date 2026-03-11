@@ -1,0 +1,85 @@
+//https://www.geeksforgeeks.org/problems/0-1-knapsack-problem0945/1
+
+*****recursion****
+class Solution {
+  public:
+    int helper(int idx, int w, vector<int> &val, vector<int> &wt)
+    {
+        if(idx == 0)
+        {
+            if(wt[idx]<=w) return val[idx];
+            else return 0;
+        }
+        
+        int np = helper(idx-1,w,val,wt);
+        int p = INT_MIN;
+        if(wt[idx]<=w)
+        {
+            p = val[idx] + helper(idx-1,w-wt[idx],val,wt);
+        }
+        return max(np,p);
+    }
+    int knapsack(int W, vector<int> &val, vector<int> &wt) 
+    {
+        int n=val.size();
+        return helper(n-1,W,val,wt);
+    }
+};
+
+*******memoization***
+class Solution {
+  public:
+    int helper(int idx, int w, vector<int> &val, vector<int> &wt,vector<vector<int>>& dp)
+    {
+        if(idx == 0)
+        {
+            if(wt[idx]<=w) return dp[idx][w]=val[idx];
+            else return dp[idx][w]=0;
+        }
+        
+        if(dp[idx][w] != -1) return dp[idx][w];
+        
+        int np = helper(idx-1,w,val,wt,dp);
+        int p = INT_MIN;
+        if(wt[idx]<=w)
+        {
+            p = val[idx] + helper(idx-1,w-wt[idx],val,wt,dp);
+        }
+        return dp[idx][w] = max(np,p);
+    }
+    int knapsack(int W, vector<int> &val, vector<int> &wt) 
+    {
+        int n=val.size();
+        vector<vector<int>> dp(n,vector<int>(W+1,-1));
+        return helper(n-1,W,val,wt,dp); or you can return dp[n-1][wt];
+    }
+};
+
+********Tabulation***
+    int knapsack(int W, vector<int> &val, vector<int> &wt) 
+    {
+        int n=val.size();
+        vector<vector<int>> dp(n,vector<int>(W+1,0));
+
+        //base case for idx=0
+        for(int i=wt[0];i<=W;i++)
+        {
+            dp[0][i] = val[0];
+        }
+        
+        for(int idx=1;idx<n;idx++)
+        {
+            for(int w=0;w<=W;w++)
+            {
+                int np = dp[idx-1][w];
+                int p=INT_MIN;
+                if(wt[idx]<=w)
+                {
+                    p = val[idx] + dp[idx-1][w-wt[idx]];
+                }
+                dp[idx][w] = max(np,p);
+            }
+        }
+        return dp[n-1][W];
+        
+    }
