@@ -1,0 +1,84 @@
+//https://leetcode.com/problems/coin-change-ii/description/
+
+*** recursion**
+class Solution {
+public:
+    int helper(int idx,int amount, vector<int>& coins)
+    {
+        //we need number of ways
+        if(amount == 0) return 1;
+        if(idx == 0) return amount%coins[idx] == 0;//vvimp
+
+        int np = helper(idx-1,amount,coins);
+        int p=0;
+        if(coins[idx]<=amount)
+        {
+            p += helper(idx,amount-coins[idx],coins);
+        }
+
+        return np + p;
+    }
+    int change(int amount, vector<int>& coins) 
+    {
+        int n=coins.size();
+        return helper(n-1,amount,coins);
+    }
+};
+
+
+*****memoization***
+class Solution {
+public:
+    int helper(int idx,int amount, vector<int>& coins,vector<vector<int>>& dp)
+    {
+        //we need number of ways
+        if(amount == 0) return dp[idx][amount]=1;
+        if(idx == 0) return dp[idx][amount] = ( amount%coins[idx] == 0 );//vvimp
+        
+        if(dp[idx][amount] != -1) return dp[idx][amount];
+
+        int np = helper(idx-1,amount,coins,dp);
+        int p=0;
+        if(coins[idx]<=amount)
+        {
+            p += helper(idx,amount-coins[idx],coins,dp);
+        }
+
+        return dp[idx][amount] = np + p;
+    }
+    int change(int amount, vector<int>& coins) 
+    {
+        int n=coins.size();
+        vector<vector<int>> dp(n,vector<int>(amount+1,-1));
+        return helper(n-1,amount,coins,dp);
+    }
+};
+
+****tabulation**
+int change(int amount, vector<int>& coins) 
+{
+    int n = coins.size();
+    vector<vector<unsigned long long>> dp(n, vector<unsigned long long>(amount+1,0));
+
+    for(int amt=0; amt<=amount; amt++)
+    {
+        if(amt % coins[0] == 0)
+            dp[0][amt] = 1;
+    }
+
+    for(int idx=1; idx<n; idx++)
+    {
+        for(int amt=0; amt<=amount; amt++)
+        {
+            unsigned long long np = dp[idx-1][amt];
+            unsigned long long p = 0;
+
+            if(coins[idx] <= amt)
+                p = dp[idx][amt - coins[idx]];
+
+            dp[idx][amt] = np + p;
+        }
+    }
+
+    return (int)dp[n-1][amount];
+}
