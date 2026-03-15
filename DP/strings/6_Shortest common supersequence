@@ -1,0 +1,208 @@
+//https://leetcode.com/problems/shortest-common-supersequence/
+Key Idea
+
+Use Longest Common Subsequence (LCS).
+SCS length = n + m − LCS
+Why?
+
+LCS characters appear in both strings
+So we include them only once
+Shortest Common Supersequence (SCS)
+
+Definition
+The shortest string that contains both str1 and str2 as subsequences.
+
+--------------------------------------------------
+
+Key Idea
+Use Longest Common Subsequence (LCS).
+
+SCS length = n + m − LCS
+
+Reason:
+Characters in the LCS appear in both strings, so we include them only once when merging.
+
+--------------------------------------------------
+
+Step 1: Build LCS DP Table
+
+dp[i][j] = LCS length of str1[0..i-1] and str2[0..j-1]
+
+Transition:
+
+if(str1[i-1] == str2[j-1])
+    dp[i][j] = 1 + dp[i-1][j-1]
+else
+    dp[i][j] = max(dp[i-1][j], dp[i][j-1])
+
+Time Complexity:  O(n * m)
+Space Complexity: O(n * m)
+
+--------------------------------------------------
+
+Step 2: Backtrack to Build SCS
+
+Start from:
+i = n
+j = m
+
+Case 1: Characters Match
+
+if(str1[i-1] == str2[j-1])
+{
+    str += str1[i-1];
+    i--;
+    j--;
+}
+
+Reason:
+Character belongs to LCS, so add only once.
+
+--------------------------------------------------
+
+Case 2: Move Up
+
+if(dp[i-1][j] > dp[i][j-1])
+{
+    str += str1[i-1];
+    i--;
+}
+
+Take character from str1.
+
+--------------------------------------------------
+
+Case 3: Move Left
+
+else
+{
+    str += str2[j-1];
+    j--;
+}
+
+Take character from str2.
+
+--------------------------------------------------
+
+Step 3: Add Remaining Characters
+
+If one string finishes earlier:
+
+while(i > 0)
+{
+    str += str1[i-1];
+    i--;
+}
+
+while(j > 0)
+{
+    str += str2[j-1];
+    j--;
+}
+
+--------------------------------------------------
+
+Step 4: Reverse Result
+
+Since we built the string from end to start:
+
+reverse(str.begin(), str.end());
+
+--------------------------------------------------
+
+Final Complexity
+
+Time  : O(n * m)
+Space : O(n * m)
+
+--------------------------------------------------
+
+Example
+
+str1 = "abac"
+str2 = "cab"
+
+LCS = "ab"
+
+SCS = "cabac"
+
+--------------------------------------------------
+
+Common Interview Mistakes
+
+1. Forgetting to reverse the result
+2. Not adding remaining characters
+3. Wrong DP comparison
+4. Forgetting LCS idea
+
+--------------------------------------------------
+
+1-Line Interview Explanation
+
+Compute LCS using DP, then backtrack through the DP table to merge both strings while keeping common characters only once.
+
+
+
+class Solution {
+public:
+    string shortestCommonSupersequence(string str1, string str2) 
+    {
+         //longest common subsequence
+        int n=str1.size();
+        int m=str2.size();
+        vector<vector<int>> dp(n+1,vector<int>(m+1,0));
+
+        for(int i=1;i<=n;i++)
+        {
+            for(int j=1;j<=m;j++)
+            {
+                if(str1[i-1]==str2[j-1])
+                {
+                    dp[i][j] = 1 + dp[i-1][j-1];
+                }
+                else
+                {
+                    dp[i][j] = max(dp[i-1][j],dp[i][j-1]);
+                }
+            }
+        }
+
+        int i=n,j=m;
+        string str;
+        while(i>0 && j>0)
+        {
+           if(str1[i-1]==str2[j-1])
+           {
+              //add once 
+              str += str1[i-1];
+              i--;
+              j--;
+           }
+           else if(dp[i-1][j] > dp[i][j-1])
+           {
+             //take i guy
+              str += str1[i-1];
+              i--;
+           }
+           else
+           {
+              str += str2[j-1];
+              j--;
+           }
+        }
+                    //it may end up between 
+        while(i>0)
+        {
+             str+=str1[i-1];
+             i--;;
+        }
+        while(j>0)
+        {
+            str+=str2[j-1];
+            j--;
+        } 
+        reverse(str.begin(),str.end());
+        return str;
+    }
+
+};
