@@ -1,5 +1,18 @@
 //https://leetcode.com/problems/longest-common-subsequence/description/
 
+If characters match → include them in LCS.
+
+If not → skip one character from either string and take the best.
+
+if s1[i] == s2[j]
+    1 + LCS(i-1, j-1)
+else
+    max(LCS(i-1, j), LCS(i, j-1))
+
+DP meaning:
+dp[i][j] = length of LCS of
+           s1[0..i-1] and s2[0..j-1]
+
 ***rRecursion***
 class Solution {
   public:
@@ -61,3 +74,11 @@ class Solution {
         }
         return dp[n][m];
     }
+
+
+| Approach               | Time       | Space         |
+| ---------------------- | ---------- | ------------- |
+| Recursion              | O(2^(n+m)) | O(n+m)        |
+| Memoization (Top-Down) | O(nm)      | O(nm) + stack |
+| Tabulation (Bottom-Up) | O(nm)      | O(nm)         |
+
