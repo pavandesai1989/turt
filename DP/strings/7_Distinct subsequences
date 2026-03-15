@@ -1,2 +1,101 @@
 //https://leetcode.com/problems/distinct-subsequences/
 
+1. Key Idea
+
+At every character we have two choices.
+
+If characters match:
+
+take the character OR skip the character
+
+s[i] == t[j]
+
+take  → match both characters
+        helper(i-1, j-1)
+
+skip  → ignore s[i]
+        helper(i-1, j)
+
+If characters don't match:
+
+skip s[i]
+helper(i-1, j)
+
+
+
+
+class Solution {
+public:
+    int helper(int i,int j,string& s1,string& s2)
+    {
+       if(j<0) return 1;//matched
+       if(i<0) return 0;
+
+       if(s1[i]==s2[j])
+       {
+          return helper(i-1,j-1,s1,s2) + helper(i-1,j,s1,s2);
+       }
+       return helper(i-1,j,s1,s2);//no match
+    }
+    int numDistinct(string s, string t) 
+    {
+        int n=s.size();
+        int m=t.size();
+        return helper(n-1,m-1,s,t);
+    }
+};
+
+class Solution {
+public:
+    int helper(int i,int j,string& s1,string& s2,vector<vector<int>>& dp)
+    {
+       if(j == 0) return 1;//matched
+       if(i == 0) return 0;
+
+       if(dp[i][j] != -1) return dp[i][j];
+
+       if(s1[i-1]==s2[j-1])
+       {
+          return dp[i][j] = helper(i-1,j-1,s1,s2,dp) + helper(i-1,j,s1,s2,dp);
+       }
+       return dp[i][j] = helper(i-1,j,s1,s2,dp);//no match
+    }
+    int numDistinct(string s, string t) 
+    {
+        int n=s.size();
+        int m=t.size();
+        vector<vector<int>> dp(n+1,vector<int>(m+1,-1));
+        return helper(n,m,s,t,dp);//imp
+    }
+};
+
+int numDistinct(string s, string t) 
+    {
+        int n=s.size();
+        int m=t.size();
+        vector<vector<double>> dp(n+1,vector<double>(m+1,0));
+        //base cases
+        for(int i=0;i<=n;i++)
+        {
+            dp[i][0]=1;
+        }
+        for(int j=1;j<=m;j++)
+        {
+            dp[0][j] = 0;
+        }
+        for(int i=1;i<=n;i++)
+        {
+            for(int j=1;j<=m;j++)
+            {
+                if(s[i-1]==t[j-1])
+                {
+                    dp[i][j] = dp[i-1][j-1] + dp[i-1][j];
+                }
+                else
+                {
+                    dp[i][j] = dp[i-1][j];
+                }
+            }
+        }
+        return dp[n][m];
+    }
