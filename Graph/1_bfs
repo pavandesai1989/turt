@@ -1,0 +1,54 @@
+//https://www.naukri.com/code360/problems/bfs-in-graph_973002?leftPanelTabValue=PROBLEM
+
+vector<int> bfsTraversal(int n, vector<vector<int>> &adj)
+{
+    vector<int> bfs;
+    vector<int> visited(n,0);
+    queue<int> q;
+    q.push(0);
+    visited[0]=1;
+
+    while(!q.empty())
+    {
+        int f = q.front();
+        q.pop();
+        bfs.push_back(f);
+        for(auto it:adj[f])
+        {
+            if(!visited[it])
+            {
+                visited[it]=true;
+                q.push(it);
+            }
+        }
+    }
+    return bfs;
+}
+
+Time and space:
+Time Complexity: O(V + E)
+✅ Why V (Vertices)?
+Every node is visited exactly once
+Because once visited → never pushed again
+
+👉 So total node processing = O(V)
+
+Why E (Edges)?
+For every node, we iterate over its adjacency list:
+for (auto it : adj[node])
+Across the whole graph:
+Every edge is explored once (directed)
+Or twice (undirected: u→v and v→u)
+
+Final Time Complexity
+O(V) + O(E) = O(V + E)
+
+
+Space Complexity: O(V)
+visited array : Stores state for each node → O(V)
+
+Quick Interview Summary 🚀
+Time: O(V + E) → visit all nodes + edges
+Space: O(V) → visited + queue + result
+
+👉 Total edge work = O(E)
