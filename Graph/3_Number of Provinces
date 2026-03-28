@@ -1,0 +1,48 @@
+//https://leetcode.com/problems/number-of-provinces/description/
+
+class Solution {
+public:
+    void dfs(int node,vector<bool>& visited,vector<int> adjList[])
+    {
+       visited[node]=true;
+       //call on adj node
+       for(auto it:adjList[node])
+       {
+          if(!visited[it])
+          {
+             dfs(it,visited,adjList);
+          }
+       }
+
+    }
+    int findCircleNum(vector<vector<int>>& isConnected) 
+    {
+        int n = isConnected.size();//no of nodes/vertex
+        vector<int> adjList[n];
+        vector<bool> visited(n,false);
+        int res=0;
+
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                if(isConnected[i][j]==1 && i!=j)
+                {
+                    adjList[i].push_back(j);
+                    adjList[j].push_back(i);
+                }
+            } 
+        }
+
+        for(int i=0;i<n;i++)
+        {
+            if(!visited[i])
+            {               
+               dfs(i,visited,adjList);
+               res++;
+            }
+        }
+        return res;
+    }
+};
+
