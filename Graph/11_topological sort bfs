@@ -1,0 +1,61 @@
+//https://www.geeksforgeeks.org/problems/topological-sort/1
+
+Algo:
+1. Build adj list (u → v)
+2. Compute indegree[v]++
+3. Push all nodes with indegree = 0 into queue
+4. BFS:
+   - pop node → add to result
+   - for neighbors:
+       indegree--
+       if 0 → push
+5. If res.size() != V → cycle
+
+class Solution {
+  public:
+    vector<int> topoSort(int V, vector<vector<int>>& edges) 
+    {
+       vector<int> res;
+       //adj list 
+       vector<int> adjList[V];
+       for(int i=0;i<edges.size();i++)
+       {
+           int u=edges[i][0];
+           int v=edges[i][1];
+           adjList[u].push_back(v);// edge from u to v
+       }
+       
+       vector<int> indegree(V,0);
+       for(int i=0;i<V;i++)
+       {
+           for(auto it:adjList[i])
+           {
+               indegree[it]++; //edge from i to it
+           }
+       }
+       
+       //add all indegree 0 to q
+       queue<int> q;
+       for(int i=0;i<V;i++)
+       {
+           if(indegree[i]==0)
+           {
+               q.push(i);
+           }
+       }
+       
+       while(!q.empty())
+       {
+           int f=q.front();
+           q.pop();
+           res.push_back(f);
+           
+           for(auto it:adjList[f])
+           {
+               indegree[it]--;
+               if(indegree[it]==0) q.push(it);
+           }
+       }
+       return res;
+    }
+};
