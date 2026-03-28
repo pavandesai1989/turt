@@ -1,0 +1,37 @@
+https://www.geeksforgeeks.org/problems/depth-first-traversal-for-a-graph/1
+
+class Solution {
+  public:
+    void helper(int node,
+                vector<vector<int>>& adj,
+                vector<bool>& visited,
+                vector<int>& res)
+    {
+        //mark visited
+        visited[node]=true;
+        //add to result
+        res.push_back(node);
+        
+        //call in adj node
+        for(auto it:adj[node])
+        {
+            if(!visited[it])
+            {
+                helper(it,adj,visited,res);
+            }
+        }
+    }
+    vector<int> dfs(vector<vector<int>>& adj) 
+    {
+        vector<int> res;
+        vector<bool> visited(adj.size(),false);
+        helper(0,adj,visited,res);
+        return res;
+    }
+};
+
+
+🔹 Quick Summary (Say this in interview)
+
+👉 Time: O(V + E) — visit every node and edge once
+👉 Space: O(V) — visited array + recursion stack
