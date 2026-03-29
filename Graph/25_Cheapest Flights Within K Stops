@@ -1,0 +1,42 @@
+https://leetcode.com/problems/cheapest-flights-within-k-stops/description/
+
+class Solution {
+public:
+    int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) 
+    {
+        //create adj list 
+        vector<pair<int,int>> adjList[n];//0 based idx //v,price
+        for(int i=0;i<flights.size();i++)
+        {
+            int u=flights[i][0];
+            int v=flights[i][1];
+            //directed graph
+            adjList[u].push_back({v,flights[i][2]});
+        }
+
+        vector<int> minstops(n,1e9);
+        minstops[src]=0;
+        priority_queue< tuple<int,int,int>,
+                        vector<tuple<int,int,int>>,
+                        greater<tuple<int,int,int>> > mh; //price node stop
+        //add src to mh
+        mh.push({0,src,0});//price src
+
+        while(!mh.empty())
+        {
+            auto [price,node,stop] = mh.top();mh.pop();
+            if(node==dst) return price;
+            if(stop>k || stop > minstops[node]) continue;
+            minstops[node]=stop;
+
+            for(auto it:adjList[node])
+            {
+                int adjNode = it.first;
+                int cost = it.second;
+
+                mh.push({price+cost,adjNode,stop+1});
+            }
+        }
+        return -1;
+    }
+};
