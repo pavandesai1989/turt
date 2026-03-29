@@ -1,0 +1,50 @@
+https://www.geeksforgeeks.org/problems/shortest-path-in-undirected-graph-having-unit-distance/1
+
+class Solution {
+  public:
+    vector<int> shortestPath(int V, vector<vector<int>> &edges, int src) 
+    {
+       vector<int> res(V,-1);
+       //create adj list
+       vector<int> adjList[V];
+       for(int i=0;i<edges.size();i++)
+       {
+           int u=edges[i][0];
+           int v=edges[i][1];
+           adjList[u].push_back(v);
+           adjList[v].push_back(u);
+       }
+       
+       //push 0 to queue
+       queue<int> q;
+       q.push(src);
+       vector<int> dist(V,1e9);
+       dist[src]=0;
+       
+       while(!q.empty())
+       {
+           int node=q.front();
+           q.pop();
+           
+           for(auto it:adjList[node])
+           {
+               if(dist[node]+1 <dist[it])
+               {
+                   dist[it] = dist[node]+1;
+                   q.push(it);
+               }
+           }
+       }
+       for(int i=0;i<V;i++)
+       {
+           if(dist[i]!=1e9) res[i]=dist[i];
+       }
+       return res;
+       
+    }
+};
+
+
+BFS with adjacency list = O(V + E) ✅
+Using adjacency matrix would be O(V^2) ❌
+Space complexity = O(V + E + V + V) = O(V + E) ✅
