@@ -1,0 +1,9 @@
+| Pattern                                 | Key Idea                                              | Representative Questions                                                         | Importance        |
+| --------------------------------------- | ----------------------------------------------------- | -------------------------------------------------------------------------------- | ----------------- |
+| **Classic Binary Search (Exact Match)** | Search for target in sorted array                     | Binary Search (LC #704), First / Last Position of Element (LC #34)               | 🔥 Most Important |
+| **Lower Bound / Upper Bound**           | Find first ≥ target or last ≤ target                  | Find Minimum in Rotated Sorted Array (LC #153), Search Insert Position (LC #35)  | 🔥 Most Important |
+| **Rotated Array / Pivot Search**        | Handle rotation + search                              | Search in Rotated Sorted Array (LC #33), Find Minimum in Rotated Array (LC #153) | High              |
+| **Peak / Maximum / Minimum**            | Use binary search on **condition** (not direct index) | Find Peak Element (LC #162), Max in Mountain Array (LC #1095)                    | High              |
+| **Binary Search on Answer**             | Search for minimum/maximum satisfying a condition     | Koko Eating Bananas (LC #875), Minimum Time to Complete Trips (LC #2187)         | High              |
+| **Matrix / 2D Binary Search**           | Treat 2D matrix as 1D sorted array                    | Search a 2D Matrix (LC #74), Search a 2D Matrix II (LC #240)                     | Medium            |
+| **Advanced / Optional Variants**        | Problems using BS on monotonic functions              | Median of Two Sorted Arrays (LC #4), Split Array Largest Sum (LC #410)           | Optional          |
