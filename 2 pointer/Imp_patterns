@@ -1,0 +1,8 @@
+| Pattern                   | Question                  | Why it’s enough                                                             |
+| ------------------------- | ------------------------- | --------------------------------------------------------------------------- |
+| Pair Sum                  | Two Sum II                | Covers **classic sorted array pair sum**, foundation of 2-pointer questions |
+| Triplet / K-Sum           | 3Sum                      | Covers **triplet pattern**, also teaches 3Sum Closest as a variant          |
+| Greedy / Max Area         | Container With Most Water | Classic **converging-pointer / max area** problem, very common              |
+| Partition / Rearrangement | Sort Colors               | Teaches **in-place rearrangement / Dutch National Flag**, appears often     |
+| Palindrome / Reverse      | Valid Palindrome          | Covers **string / two-end pointer comparisons**, simple but frequent        |
+| Advanced / Optional       | Trapping Rain Water       | Optional **harder 2-pointer variant**, only if confident                    |
