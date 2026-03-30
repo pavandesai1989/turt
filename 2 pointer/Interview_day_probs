@@ -1,0 +1,7 @@
+| Pattern                       | Question                           | Link                                                                             |
+| ----------------------------- | ---------------------------------- | -------------------------------------------------------------------------------- |
+| **Pair Sum**                  | Two Sum II – Input Array Is Sorted | [LeetCode #167](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/) |
+| **Triplet / K-Sum**           | 3Sum                               | [LeetCode #15](https://leetcode.com/problems/3sum/)                              |
+| **Greedy / Max Area**         | Container With Most Water          | [LeetCode #11](https://leetcode.com/problems/container-with-most-water/)         |
+| **Partition / Rearrangement** | Sort Colors                        | [LeetCode #75](https://leetcode.com/problems/sort-colors/)                       |
+| **Palindrome / Reverse**      | Valid Palindrome                   | [LeetCode #125](https://leetcode.com/problems/valid-palindrome/)                 |
