@@ -19,6 +19,15 @@ public:
         return helper(nums.size()-1,nums);
     }
 };
+
+Time Complexity
+Exponential: O(2^n)
+Reason: Each call branches into two recursive calls, and many subproblems are recomputed repeatedly.
+
+Space Complexity
+Recursion stack: maximum depth = n → O(n)
+No extra space used aside from recursion stack.
+
 ***memoization****
 class Solution {
 public:
@@ -42,6 +51,15 @@ public:
     }
 };
 
+Time Complexity
+O(n) → each idx from 0 to n-1 is computed at most once thanks to dp.
+
+Space Complexity
+DP array: vector<int> dp(n, -1) → O(n)
+Recursion stack: maximum depth = n → O(n)
+
+Total Space: O(n) + O(n) = O(n)
+
 ***tabulation****
 class Solution {
 public:
@@ -62,3 +80,9 @@ public:
         return dp[n-1];
     }
 };
+
+Time Complexity
+O(n) → single loop through all houses.
+
+Space Complexity
+O(n) → DP array of size n.
