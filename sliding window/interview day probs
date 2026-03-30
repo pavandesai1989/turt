@@ -1,0 +1,8 @@
+| Pattern                                    | Key Question                                   | Link                                                                                           | Priority |
+| ------------------------------------------ | ---------------------------------------------- | ---------------------------------------------------------------------------------------------- | -------- |
+| **Fixed-Size Window – Sum / Max / Min**    | Maximum Sum Subarray of Size K                 | [LeetCode #209](https://leetcode.com/problems/minimum-size-subarray-sum/) (or similar variant) | Must     |
+| **Variable-Size Window – Sum / Condition** | Minimum Size Subarray Sum                      | [LeetCode #209](https://leetcode.com/problems/minimum-size-subarray-sum/)                      | Must     |
+| **Longest Substring / Unique Count**       | Longest Substring Without Repeating Characters | [LeetCode #3](https://leetcode.com/problems/longest-substring-without-repeating-characters/)   | Must     |
+| **Sliding Window Max / Min**               | Sliding Window Maximum                         | [LeetCode #239](https://leetcode.com/problems/sliding-window-maximum/)                         | Must     |
+| **Pattern Matching / Anagram**             | Find All Anagrams in a String                  | [LeetCode #438](https://leetcode.com/problems/find-all-anagrams-in-a-string/)                  | Optional |
+| **Dynamic Window + HashMap**               | Longest Repeating Character Replacement        | [LeetCode #424](https://leetcode.com/problems/longest-repeating-character-replacement/)        | Optional |
