@@ -1,0 +1,60 @@
+MUST-DO / High Priority (Interview Essentials)
+
+| Topic                        | Key Points / Patterns                                                      | Links / Notes                                        |
+| ---------------------------- | -------------------------------------------------------------------------- | ---------------------------------------------------- |
+| BFS                          | Level order traversal, shortest path in unweighted graph, multi-source BFS | `1_bfs`, `8_Rotting Oranges`, `9_01 Matrix`          |
+| DFS                          | Basic DFS, recursive & iterative, traversal, connected components          | `2_dfs`, `3_Number of Provinces`                     |
+| Number of Islands            | Classic BFS/DFS grid problem, count connected components                   | `5_Number of Islands`                                |
+| Max Area of Island           | BFS/DFS, find largest connected area                                       | `7_Max Area of Island`                               |
+| Topological Sort (DFS & BFS) | DAG, course schedule problems, detect ordering                             | `10_topological sort dfs`, `11_topological sort bfs` |
+| Network Delay Time           | Dijkstra, min-heap, weighted graph                                         | `24_Network Delay Time`                              |
+
+
+MUST / Medium Priority (Pattern Recognition & Applications)
+| Topic                             | Key Points                                            | Notes   |
+| --------------------------------- | ----------------------------------------------------- | ------- |
+| Directed Graph Cycle (DFS & BFS)  | Detect cycles, needed for topo sort / course schedule | `12/20` |
+| Undirected Graph Cycle            | DFS / BFS or Union-Find                               | `19`    |
+| Course Schedule I / II            | Topo sort + cycle detection, build valid order        | `13/14` |
+| Alien Dictionary                  | Topo sort on characters, ordering constraints         | `15`    |
+| Find Eventual Safe States         | Reverse topo / cycle detection variant                | `16`    |
+| Shortest Path in DAG              | Topo sort + edge relaxation, handles negative weights | `22`    |
+| Shortest Path in Undirected Graph | BFS-based, unit-weight edges                          | `21`    |
+| Dijkstra Algorithm                | Single-source, weighted graphs, non-negative edges    | `23`    |
+| Cheapest Flights Within K Stops   | BFS/Dijkstra variant with constraints                 | `25`    |
+
+
+SHOULD / Grid-Based / Bonus Problems
+| Topic                      | Key Points                           | Notes                          |
+| -------------------------- | ------------------------------------ | ------------------------------ |
+| Surrounded Regions         | Boundary DFS/BFS, capture regions    | `17_Surrounded Regions`        |
+| Number of Enclaves         | DFS/BFS, count enclosed regions      | `18_Number of Enclaves`        |
+| Flood Fill                 | DFS/BFS, change connected area color | `6_Flood Fill`                 |
+| Number of Distinct Islands | BFS/DFS + hashing, recognize shapes  | `5_Number of Distinct Islands` |
+| 01 Matrix                  | BFS for shortest distance from 0s    | `9_01 Matrix`                  |
+
+
+OPTIONAL / Rarely Asked
+| Topic                     | Notes                                                                        |
+| ------------------------- | ---------------------------------------------------------------------------- |
+| Floyd-Warshall            | All-pairs shortest path, negative weights OK, O(V³), usually only conceptual |
+| Bellman-Ford              | Negative edges, detects negative cycles, single-source                       |
+| Union-Find / Disjoint Set | Mostly for undirected graph connectivity & cycle detection                   |
+
+
+Quick Rules for Shortest Path
+| Graph Type             | Edge Weight     | Algorithm                 |
+| ---------------------- | --------------- | ------------------------- |
+| DAG                    | Any (neg/pos)   | Topo sort + relaxation    |
+| Any                    | Non-negative    | Dijkstra                  |
+| Any                    | Can be negative | Bellman-Ford              |
+| Unweighted             | N/A             | BFS                       |
+| Small graph, all-pairs | Any             | Floyd-Warshall (optional) |
+
+
+Strategy for Interviews
+Start with BFS / DFS basics → grid problems → islands, rotting oranges.
+Master Topo sort / DAG problems → course schedule, alien dictionary.
+Master Shortest path algorithms → BFS, Dijkstra, DAG shortest path, network delay time.
+Practice Cycle detection in directed & undirected graphs.
+Optional: understand Floyd-Warshall and Bellman-Ford conceptually.
