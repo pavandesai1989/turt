@@ -1,1 +1,68 @@
 https://leetcode.com/problems/surrounded-regions/description/
+
+class Solution {
+public:
+    void dfs(int i,int j,vector<vector<char>>& board,int rows,int cols)
+    {
+       if(i<0 || i==rows || j<0 || j==cols || board[i][j]!='O')
+       {
+        return;
+       }
+       board[i][j]='B';
+
+       dfs(i-1,j,board,rows,cols);
+       dfs(i+1,j,board,rows,cols);
+       dfs(i,j+1,board,rows,cols);
+       dfs(i,j-1,board,rows,cols);
+    }
+    void solve(vector<vector<char>>& board) 
+    {
+        int rows=board.size();
+        int cols=board[0].size();
+
+        for(int i=0;i<rows;i++) //top to bottome
+        {
+            int j=0;
+            if(board[i][j]=='O') //col 1
+            {
+                dfs(i,j,board,rows,cols);
+            }
+
+            j=cols-1;
+            if(board[i][j]=='O') //last col
+            {
+                dfs(i,j,board,rows,cols);
+            }
+        }
+
+        for(int j=0;j<cols;j++) //left to right
+        {
+            int i=0;
+            if(board[i][j]=='O') //col 1
+            {
+                 dfs(i,j,board,rows,cols);
+            }
+
+            i=rows-1;
+            if(board[i][j]=='O') //last col
+            {
+                 dfs(i,j,board,rows,cols);
+            }
+        }
+
+        for(int i=0;i<rows;i++)
+        {
+            for(int j=0;j<cols;j++)
+            {
+                if(board[i][j]=='B')
+                {
+                    board[i][j]='O';
+                }
+                else if(board[i][j]=='O')
+                {
+                    board[i][j]='X';
+                }
+            }
+        }
+    }
+};
