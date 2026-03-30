@@ -1,1 +1,65 @@
 https://leetcode.com/problems/number-of-enclaves/description/
+
+
+class Solution {
+public:
+    void dfs(int i,int j,vector<vector<int>>& grid,int rows,int cols)
+    {
+        if(i<0 || i==rows || j<0 || j==cols || grid[i][j]!=1)
+        {
+            return;
+        }
+        grid[i][j]=0;
+
+        dfs(i-1,j,grid,rows,cols);
+        dfs(i+1,j,grid,rows,cols);
+        dfs(i,j-1,grid,rows,cols);
+        dfs(i,j+1,grid,rows,cols);
+    }
+    int numEnclaves(vector<vector<int>>& grid) 
+    {
+        int res=0;
+        int rows=grid.size();
+        int cols=grid[0].size();
+
+        for(int i=0;i<rows;i++)
+        {
+            int j=0; //1st col
+            if(grid[i][j]==1)
+            {
+                dfs(i,j,grid,rows,cols);
+            }
+            j=cols-1;
+            if(grid[i][j]==1)
+            {
+                dfs(i,j,grid,rows,cols);
+            }
+        }
+
+        for(int j=0;j<cols;j++)
+        {
+            int i=0; //1st row
+            if(grid[i][j]==1)
+            {
+                dfs(i,j,grid,rows,cols);
+            }
+            i=rows-1;
+            if(grid[i][j]==1)
+            {
+                dfs(i,j,grid,rows,cols);
+            }
+        }
+
+        for(int i=0;i<rows;i++)
+        {
+            for(int j=0;j<cols;j++)
+            {
+                if(grid[i][j]==1)
+                {
+                    res++;
+                }
+            }
+        }
+        return res;
+    }
+};
