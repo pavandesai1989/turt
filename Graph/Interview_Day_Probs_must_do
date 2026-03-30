@@ -1,0 +1,22 @@
+#InterviewDay – BFS / Grid
+1. 8_Rotting Oranges         – Multi-source BFS
+2. 5_Number of Islands       – Count connected components in a grid
+3. 7_Max Area of Island      – Largest connected area in a grid
+
+#InterviewDay – DFS / Graph
+4. 3_Number of Provinces     – Connected components in graph
+5. 2_dfs                     – Basic DFS traversal (recursive & iterative)
+
+#InterviewDay – Topological Sort / DAG
+6. 10_topological sort dfs   – DFS-based topo sort
+7. 11_topological sort bfs   – BFS-based topo sort / Kahn’s Algorithm
+
+#InterviewDay – Shortest Path
+8. 21_Shortest Path in Undirected Graph – BFS, unweighted edges
+9. 22_Shortest Path in DAG              – Topo sort + edge relaxation
+10. 24_Network Delay Time               – Dijkstra (min-heap)
+
+#Strategy Order for Interview Day
+Step 1: BFS / DFS basics + grid problems (8, 5, 7)  
+Step 2: Topological Sort / DAG (10, 11)  
+Step 3: Shortest Path (21, 22, 24)
