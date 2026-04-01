@@ -1,0 +1,83 @@
+//https://leetcode.com/problems/unique-paths-ii/
+
+
+class Solution {
+public:
+    int helper(int i,int j,vector<vector<int>>& obstacleGrid)
+    {
+       if(i<0 || j<0) return 0;
+       if(obstacleGrid[i][j]==1) return 0;//imp to check first this
+       if(i==0 && j==0) return 1;       
+       
+       return helper(i-1,j,obstacleGrid)+helper(i,j-1,obstacleGrid);
+    }
+
+    int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid) 
+    {
+        int m=obstacleGrid.size();
+        int n=obstacleGrid[0].size();
+        if(obstacleGrid[0][0]==1) return 0;///imppp
+        return helper(m-1,n-1,obstacleGrid);
+    }
+};
+
+📝 Time & Space Complexity
+⏱ Time Complexity
+Each call makes 2 recursive calls (up & left)
+No memoization → recomputes same states
+
+👉 O(2^(m + n)) ❌ (exponential)
+
+💾 Space Complexity
+Recursive call stack depth = path length from (m-1,n-1) to (0,0)
+
+👉 O(m + n)
+
+🚀 Final Answer
+Time: O(2^(m+n)) ❌
+Space: O(m+n)
+
+
+class Solution {
+public:
+    int helper(int i,int j,vector<vector<int>>& obstacleGrid,vector<vector<int>>& dp)
+    {
+       if(i<0 || j<0) return 0;
+       if(obstacleGrid[i][j]==1) return 0;//imp to check first this
+       if(dp[i][j] != -1) return dp[i][j];
+       if(i==0 && j==0) return dp[i][j]=1;       
+       
+       return dp[i][j]=helper(i-1,j,obstacleGrid,dp)+helper(i,j-1,obstacleGrid,dp);
+    }
+
+    int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid) 
+    {
+        int m=obstacleGrid.size();
+        int n=obstacleGrid[0].size();
+        if(obstacleGrid[0][0]==1) return 0;///imppp
+        vector<vector<int>> dp(m,vector<int>(n,-1));
+        return helper(m-1,n-1,obstacleGrid,dp);
+    }
+};
+
+⏱ Time Complexity
+Total states = m * n
+Each state computed once (stored in dp)
+Each computation does O(1) work
+
+👉 O(m × n) ✅
+
+💾 Space Complexity
+1. DP Table
+dp[m][n]
+
+👉 O(m × n)
+
+2. Recursive Stack
+Max depth = (m-1 + n-1)
+
+👉 O(m + n)
+
+✅ Final Answer
+Time: O(m × n)
+Space: O(m × n) + O(m + n)
