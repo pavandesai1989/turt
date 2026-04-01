@@ -1,0 +1,33 @@
+**************DP SUBSEQUENCE (NON-STRING) — MUST DO LIST***********
+
+TIER 1 (MUST MUST)
+1. Subset Sum (Target Sum Exists)
+2. Partition Equal Subset Sum
+3. 0/1 Knapsack
+4. Count Subsets with Given Sum
+5. Target Sum (LeetCode)
+
+TIER 2 (VERY IMPORTANT)
+6. Minimum Subset Sum Difference
+7. Coin Change (Minimum Coins)
+8. Coin Change II (Count Ways)
+9. Rod Cutting
+
+TIER 3 (GOOD TO HAVE)
+10. Unbounded Knapsack
+11. Perfect Sum Problem (GFG)
+
+MINIMAL SET (IF LESS TIME)****************** MOST ASKED 
+1. 0/1 Knapsack
+2. Subset Sum
+3. Partition Equal Subset Sum
+4. Coin Change (Minimum Coins)
+5. Target Sum
+
+PATTERNS COVERED
+- Pick / Not Pick
+- 0/1 Knapsack
+- Unbounded Knapsack
+- Partition DP
+- Counting DP
+***********************DP on strings*******
