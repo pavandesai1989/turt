@@ -1,0 +1,115 @@
+//https://leetcode.com/problems/unique-paths/description/
+
+class Solution {
+public:
+    int helper(int i,int j,int m,int n)
+    {
+        //base case
+        if(i == 0 && j == 0) return 1;
+        if(i<0 || j<0) return 0;
+
+        return helper(i-1,j,m,n) + helper(i,j-1,m,n);
+    }
+    int uniquePaths(int m, int n) 
+    {
+       return helper(m-1,n-1,m,n);
+    }
+}; 
+👉 Total number of calls ≈ O(2^(m+n)) (exponential)
+
+Final Time Complexity:
+O(2^(m+n))
+
+💾 Space Complexity
+
+Two parts:
+
+Recursive stack depth
+Max depth = path length from (m-1, n-1) to (0,0)
+That is (m-1 + n-1) ≈ O(m + n)
+No extra data structures used
+
+Final Space Complexity:
+O(m + n) (recursive stack)
+
+
+class Solution {
+public:
+    int helper(int i,int j,vector<vector<int>>& dp)
+    {  
+       if(i<0 || j<0) return 0;   ///imp else crash   
+       if(dp[i][j]!=-1) return dp[i][j];
+       if(i==0 && j==0) return dp[i][j]=1;
+       
+       return dp[i][j]=helper(i-1,j,dp)+helper(i,j-1,dp);
+    }
+    int uniquePaths(int m, int n) 
+    {
+        vector<vector<int>> dp(m,vector<int>(n,-1));
+        return helper(m-1,n-1,dp);
+    }
+};
+
+🔍 Time Complexity
+Total unique states = m * n (each cell (i, j))
+Each state is computed only once due to memoization
+Each computation does O(1) work
+
+👉 Time Complexity = O(m × n)
+
+💾 Space Complexity
+
+There are two parts:
+
+1. DP Table
+dp[m][n] → stores results
+👉 O(m × n)
+2. Recursive Stack
+Max depth = path length → (m-1 + n-1)
+👉 O(m + n)
+✅ Final Answer
+Time: O(m × n) ✅
+Space: O(m × n) + O(m + n)
+
+👉 In interviews, you can say:
+
+Space = O(m × n) (dp) + O(m + n) (recursion stack)
+
+
+int uniquePaths(int m, int n) 
+{
+    vector<vector<int>> dp(m, vector<int>(n, 0));
+
+    for(int i=0;i<m;i++)
+    {
+        for(int j=0;j<n;j++)
+        {
+            if(i==0 && j==0) 
+                dp[i][j] = 1;
+            else
+            {
+                int up = (i > 0) ? dp[i-1][j] : 0;
+                int left = (j > 0) ? dp[i][j-1] : 0;
+                dp[i][j] = up + left;
+            }
+        }
+    }
+
+    return dp[m-1][n-1];
+}
+
+Time Complexity
+You iterate over the entire grid once
+Total cells = m * n
+Each cell does O(1) work
+
+👉 Time Complexity = O(m × n)
+
+💾 Space Complexity
+You are using a dp[m][n] table
+
+👉 Space Complexity = O(m × n)
+
+✅ Final Answer
+Time: O(m × n)
+Space: O(m × n)
