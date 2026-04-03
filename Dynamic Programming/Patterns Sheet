@@ -1,33 +1,41 @@
-**************DP SUBSEQUENCE (NON-STRING) — MUST DO LIST***********
+MUST-DO DP QUESTIONS (Priority Order)
+🔥 TIER 1 — ABSOLUTE MUST (Core Patterns)
+0/1 Knapsack
+Subset Sum
+Partition Equal Subset Sum
+Target Sum
+Coin Change (Min Coins)
+Coin Change II (Count Ways)
+Longest Common Subsequence (LCS)
+Edit Distance ⭐
+Longest Increasing Subsequence (LIS) ⭐
 
-TIER 1 (MUST MUST)
-1. Subset Sum (Target Sum Exists)
-2. Partition Equal Subset Sum
-3. 0/1 Knapsack
-4. Count Subsets with Given Sum
-5. Target Sum (LeetCode)
 
-TIER 2 (VERY IMPORTANT)
-6. Minimum Subset Sum Difference
-7. Coin Change (Minimum Coins)
-8. Coin Change II (Count Ways)
-9. Rod Cutting
+🔥 TIER 2 — HIGH ROI (Very Frequently Asked)
+Shortest Common Supersequence
+Minimum Insertions to Make Palindrome
+Delete Operation for Two Strings
+Longest Common Substring
+Unique Paths
+Minimum Path Sum
+Triangle (Min Path)
+Minimum Falling Path Sum
 
-TIER 3 (GOOD TO HAVE)
-10. Unbounded Knapsack
-11. Perfect Sum Problem (GFG)
 
-MINIMAL SET (IF LESS TIME)****************** MOST ASKED 
-1. 0/1 Knapsack
-2. Subset Sum
-3. Partition Equal Subset Sum
-4. Coin Change (Minimum Coins)
-5. Target Sum
+🔥 TIER 3 — IMPORTANT PATTERN COVERAGE
+Matrix Chain Multiplication (MCM)
+Palindrome Partitioning II
+Best Time to Buy & Sell Stock II
+Best Time to Buy & Sell (Cooldown / Fee)
 
-PATTERNS COVERED
-- Pick / Not Pick
-- 0/1 Knapsack
-- Unbounded Knapsack
-- Partition DP
-- Counting DP
-***********************DP on strings*******
+
+Pattern Coverage Mapping (Quick Revision)
+
+• Take / Not Take → Knapsack, Subset, Coin Change
+• Count vs Min → Coin Change I & II
+• String DP → LCS, Edit Distance, SCS
+• Grid DP → Unique Paths, Falling Path
+• LIS Pattern → LIS
+• Partition DP → MCM, Palindrome Partition
+• State Machine → Stocks
+• Pattern Matching → Wildcard
