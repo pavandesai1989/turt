@@ -1,0 +1,82 @@
+1️⃣ Arrays
+Two Sum / Pair Sum → Hashing
+Subarray with given sum (positive / any numbers)
+Maximum Subarray Sum (Kadane’s)
+Trapping Rain Water
+Product of Array Except Self
+Merge Intervals
+Rotate Array
+Majority Element (Boyer-Moore)
+3Sum / 3Sum Closest
+2️⃣ Strings
+Reverse Words in a String
+Palindrome Check / Longest Palindrome Substring
+Longest Substring Without Repeating Characters
+Minimum Window Substring
+String Matching → KMP / Rabin-Karp (basic)
+Anagram Check / Group Anagrams
+Valid Parentheses
+3️⃣ Recursion & Backtracking
+N-Queens
+Rat in a Maze
+Word Search
+Subsets / Subset Sum
+Permutations / Combinations
+Sudoku Solver
+4️⃣ Dynamic Programming (DP)
+0/1 Knapsack
+Unbounded Knapsack
+Target Sum / Subset Sum
+Longest Increasing Subsequence (LIS)
+Longest Common Subsequence (LCS)
+Shortest Common Supersequence
+Minimum Edit Distance
+Matrix Chain Multiplication (MCM)
+Palindrome Partitioning (Min Cuts)
+Min Cost Path (Grid DP)
+DP on Stocks (Buy/Sell problems)
+5️⃣ Linked List
+Reverse a Linked List (Iterative / Recursive)
+Detect Cycle (Floyd’s cycle detection)
+Merge Two Sorted Lists
+Remove Nth Node From End
+Intersection of Two Lists
+6️⃣ Stack & Queue
+Implement Stack / Queue
+Next Greater / Smaller Element
+Sliding Window Maximum
+Evaluate Reverse Polish Notation
+Min Stack
+7️⃣ Trees & Binary Search Trees
+Inorder / Preorder / Postorder / Level Order Traversal
+Lowest Common Ancestor (BST & Binary Tree)
+Serialize / Deserialize Binary Tree
+Diameter of Tree
+Maximum Path Sum
+Check Balanced Tree
+Kth Smallest / Largest in BST
+Construct Tree from Inorder + Preorder / Postorder
+8️⃣ Heap / Priority Queue
+Kth Largest / Smallest Element
+Merge K Sorted Arrays
+Sliding Window Median
+Top K Frequent Elements
+9️⃣ Graphs
+BFS / DFS
+Detect Cycle (Directed / Undirected)
+Dijkstra / Bellman-Ford / Floyd-Warshall
+Minimum Spanning Tree → Prim / Kruskal
+Topological Sort
+Number of Islands / Connected Components
+Word Ladder
+🔟 Hashing / Maps / Sets
+Two Sum / Subarray Sum
+Count Distinct Elements
+Frequency Map / Top K Elements
+Subarray with 0 Sum
+1️⃣1️⃣ Advanced / Misc
+Union-Find / Disjoint Set
+Segment Trees (Range Sum / Min / Max)
+Fenwick Tree (Optional)
+Binary Search Variants (First/Last Occurrence, Peak Element)
+Sliding Window Problems
