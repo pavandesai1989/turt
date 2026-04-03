@@ -1,1 +1,165 @@
 //https://www.geeksforgeeks.org/problems/0-1-knapsack-problem0945/1 
+
+
+class Solution {
+  public:
+    int helper(int idx,vector<int> &val,vector<int> &wt,int W)
+    {
+        if(idx==0)
+        {
+            if(wt[0]<=W) return val[0];
+            else return 0;
+        }
+        
+        int take=0;
+        if(wt[idx]<=W)
+        {
+            take = val[idx]+helper(idx-1,val,wt,W-wt[idx]);
+        }
+        int nottake = helper(idx-1,val,wt,W);
+        
+        return max(take,nottake);
+    }
+    int knapsack(int W, vector<int> &val, vector<int> &wt) 
+    {
+        int n=val.size();
+        return helper(n-1,val,wt,W);
+    }
+};
+⏱️ Time Complexity:
+
+👉 O(2^N)
+
+At each index → 2 choices (take / not take)
+Total items = N
+So recursion tree = 2^N
+
+✔️ Not 2^(m+n) — there is only one dimension (items)
+
+🧠 Space Complexity:
+
+👉 O(N)
+
+Max recursion depth = N
+No extra data structures used
+
+✔️ Not m + n
+
+💡 Why confusion happens?
+
+In some DP problems (like grid):
+
+You get O(2^(m+n)) because 2 directions
+
+But here:
+
+Only N items
+So branching depends only on N
+✅ Final Answer (Interview Ready)
+Time: O(2^N)
+Space: O(N)
+
+class Solution {
+  public:
+    int helper(int idx,vector<int> &val,vector<int> &wt,int W,vector<vector<int>>& dp)
+    {
+        if(idx<0) return 0;
+        if(idx==0)
+        {
+            if(wt[0]<=W) return dp[idx][W] = val[0];
+            else return 0;
+        }
+        
+        if(dp[idx][W] != -1) return dp[idx][W];
+        
+        int take=0;
+        if(wt[idx]<=W)
+        {
+            take = val[idx]+helper(idx-1,val,wt,W-wt[idx],dp);
+        }
+        int nottake = helper(idx-1,val,wt,W,dp);
+        
+        return dp[idx][W] = max(take,nottake);
+    }
+    int knapsack(int W, vector<int> &val, vector<int> &wt) 
+    {
+        int n=val.size();
+        vector<vector<int>> dp(n,vector<int>(W+1,-1));
+        return helper(n-1,val,wt,W,dp);
+    }
+};
+
+Correct Complexity:
+⏱️ Time Complexity:
+
+👉 O(N × W)
+
+Why?
+
+States = (idx, W)
+idx → N
+W → 0 to W
+
+So total states = N × W
+
+Each state computed once due to memoization.
+
+🧠 Space Complexity:
+
+👉 O(N × W) + O(N)
+
+Breakdown:
+
+DP table: O(N × W)
+Recursion stack: O(N)
+🔥 Final Interview Answer:
+Time: O(N × W)
+Space: O(N × W) + O(N)
+
+int knapsack(int W, vector<int> &val, vector<int> &wt) 
+    {
+        int n=val.size();
+        vector<vector<int>> dp(n,vector<int>(W+1,0));
+        //return helper(n-1,val,wt,W,dp);
+        //base case
+        for(int w = 0; w <= W; w++)
+        {
+            if(wt[0] <= w)
+                dp[0][w] = val[0];
+        }
+        
+        for(int idx=1;idx<n;idx++)
+        {
+            for(int w=0;w<=W;w++)
+            {
+                int take=0;
+                if(wt[idx]<=w)
+                {
+                    take = val[idx]+dp[idx-1][w-wt[idx]];
+                }
+                int nottake = dp[idx-1][w];
+                
+                dp[idx][w] = max(take,nottake);
+            }
+        }
+        return dp[n-1][W];
+    }
+
+⏱️ Time Complexity
+
+👉 O(N × W)
+
+Outer loop → N items
+Inner loop → W capacity
+
+So total = N × W
+
+🧠 Space Complexity
+
+👉 O(N × W)
+
+DP table of size n × (W+1)
+🎯 Final Answer (Interview Ready)
+Time: O(N × W)
+Space: O(N × W)
+
