@@ -1,1 +1,166 @@
 https://www.geeksforgeeks.org/problems/knapsack-with-duplicate-items4201/1
+
+
+
+class Solution {
+  public:
+    int helper(int idx,vector<int>& val, vector<int>& wt, int capacity)
+    {
+        if(idx<0) return 0;
+        if(capacity==0) return 0;
+        if(idx==0)
+        {
+            return (capacity/wt[0])*val[0];  ********** example val=10  wt=3   W=8 he can take it 2 times ***
+        }
+        
+        int take=0;
+        if(wt[idx]<=capacity)
+        {
+            take = val[idx]+helper(idx,val,wt,capacity-wt[idx]);
+        }
+        int nottake = helper(idx-1,val,wt,capacity);
+        
+        return max(take,nottake);
+    }
+    int knapSack(vector<int>& val, vector<int>& wt, int capacity) 
+    {
+       int n=val.size();
+       return helper(n-1,val,wt,capacity);
+    }
+};
+
+Time Complexity
+
+👉 Exponential (≈ O(2^N × C))
+
+Why?
+At each state:
+take → stay at same idx, reduce capacity
+not take → move to idx-1
+
+So recursion depends on:
+
+N (items)
+C (capacity)
+
+👉 Same states (idx, capacity) are recomputed many times → exponential
+
+🧠 Space Complexity
+
+👉 O(N + C)
+
+Why?
+N → depth when going nottake path (idx decreases)
+C → depth when repeatedly taking same item (capacity reduces step by step)
+🎯 Final Answer (Interview Ready)
+Time: Exponential (≈ O(2^N × C))
+Space: O(N + C)
+(because recursion depth comes from both index reduction and repeated capacity reduction)
+
+class Solution {
+  public:
+    int helper(int idx,vector<int>& val, vector<int>& wt, int capacity,vector<vector<int>>& dp)
+    {
+        if(idx<0) return 0;
+        if(capacity==0) return dp[idx][capacity]=0;
+        if(idx==0)
+        {
+            return dp[idx][capacity]=(capacity/wt[0])*val[0];
+        }
+        
+        if(dp[idx][capacity] != -1) return dp[idx][capacity];
+        
+        int take=0;
+        if(wt[idx]<=capacity)
+        {
+            take = val[idx]+helper(idx,val,wt,capacity-wt[idx],dp);
+        }
+        int nottake = helper(idx-1,val,wt,capacity,dp);
+        
+        return dp[idx][capacity] = max(take,nottake);
+    }
+    int knapSack(vector<int>& val, vector<int>& wt, int capacity) 
+    {
+       int n=val.size();
+       vector<vector<int>> dp(n,vector<int>(capacity+1,-1));
+       return helper(n-1,val,wt,capacity,dp);
+    }
+};
+
+⏱️ Time Complexity
+
+👉 O(N × W) ✅
+
+Why?
+DP state = (idx, capacity)
+idx → N
+capacity → 0…W
+
+👉 Total states = N × W
+
+✔ Each state computed once (due to memoization)
+
+🧠 Space Complexity
+1️⃣ DP Table
+
+👉 O(N × W)
+
+vector<vector<int>> dp(n, vector<int>(capacity+1, -1));
+2️⃣ Recursion Stack
+
+👉 O(N + W)
+
+N → from idx-1 calls
+W → from repeated take calls (unbounded)
+🎯 Final Answer (Interview Ready)
+Time: O(N × W)
+Space: O(N × W) + O(N + W)
+
+int knapSack(vector<int>& val, vector<int>& wt, int capacity) 
+    {
+       int n=val.size();
+       vector<vector<int>> dp(n,vector<int>(capacity+1,0));
+       
+       //base case
+       for(int w=0;w<=capacity;w++)
+       {
+           dp[0][w]=(w/wt[0])*val[0];
+       }
+       
+       for(int idx=1;idx<n;idx++)
+       {
+           for(int w=0;w<=capacity;w++)
+           {
+                int take=0;
+                if(wt[idx]<=w)
+                {
+                    take = val[idx]+dp[idx][w-wt[idx]];
+                }
+                int nottake = dp[idx-1][w];
+                
+                dp[idx][w] = max(take,nottake);
+           }
+       }
+       return dp[n-1][capacity];
+    }
+Time Complexity
+
+👉 O(N × W)
+
+Why?
+
+Outer loop → N (items)
+Inner loop → W (capacity from 0 → W)
+
+👉 Total states processed = N × W
+
+💾 Space Complexity
+
+👉 O(N × W)
+
+Why?
+
+DP table size = n × (capacity + 1)
+🧠 Final Interview Answer
+Time  : O(N × W)
+Space : O(N × W)
