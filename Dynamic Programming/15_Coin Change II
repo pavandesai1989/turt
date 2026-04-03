@@ -1,1 +1,94 @@
 https://leetcode.com/problems/coin-change-ii/description/
+
+class Solution {
+public:
+    int helper(int idx,vector<int>& coins,int amount)
+    {
+        if(idx<0) return 0;
+        if(amount==0) return 1;
+        if(idx==0)
+        {
+            if(amount%coins[0]==0)
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        int take=0;
+        if(coins[idx]<=amount)
+        {
+            take=helper(idx,coins,amount-coins[idx]);
+        }
+        int nottake = helper(idx-1,coins,amount);
+
+        return take + nottake;
+    }
+
+    int change(int amount, vector<int>& coins) 
+    {
+        int n=coins.size();
+        return helper(n-1,coins,amount);
+    }
+};
+
+O(2^(n + amount)) (very loose upper bound)
+space: o(amount) 
+
+class Solution {
+public:
+    int helper(int idx,vector<int>& coins,int amount,vector<vector<int>>& dp)
+    {
+        if(idx<0) return 0;
+        if(amount==0) return dp[idx][amount]=1;
+        if(idx==0)
+        {
+            if(amount%coins[0]==0)
+            {
+                return dp[idx][amount]=1;
+            }
+            else
+            {
+                return dp[idx][amount]=0;
+            }
+        }
+
+        if(dp[idx][amount]!=-1) return dp[idx][amount];
+
+        int take=0;
+        if(coins[idx]<=amount)
+        {
+            take=helper(idx,coins,amount-coins[idx],dp);
+        }
+        int nottake = helper(idx-1,coins,amount,dp);
+
+        return dp[idx][amount]=take + nottake;
+    }
+
+    int change(int amount, vector<int>& coins) 
+    {
+        int n=coins.size();
+        vector<vector<int>> dp(n,vector<int>(amount+1,-1));
+        return helper(n-1,coins,amount,dp);
+    }
+};
+
+⏱️ Time Complexity
+
+👉 O(n × amount) ✅
+
+Why?
+States = (idx, amount)
+idx → 0 to n-1
+amount → 0 to target
+
+👉 Total states = n × amount
+Each state computed once → ✔️
+
+📦 Space Complexity
+✅ Correct Answer:
+
+O(n × amount) + O(amount)
