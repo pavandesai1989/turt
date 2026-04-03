@@ -1,0 +1,61 @@
+🔹 Ultimate DSA Cheat Sheet — Last-Minute Revision
+1️⃣ Arrays
+Patterns: Sliding window, prefix sum, two pointers, hashing
+Must-Do:
+Two Sum | Subarray Sum | Maximum Subarray (Kadane) | Trapping Rain Water | Product Except Self | Merge Intervals | Rotate Array | Majority Element | 3Sum / 3Sum Closest
+
+2️⃣ Strings
+Patterns: Sliding window, two pointers, string matching, DP on string
+Must-Do:
+Reverse Words | Palindrome Check / Longest Palindrome | Longest Substring Without Repeat | Min Window Substring | KMP / Rabin-Karp | Anagram Check | Valid Parentheses
+
+
+3️⃣ Recursion & Backtracking
+Patterns: Recursion tree, choice diagrams, backtracking
+Must-Do:
+N-Queens | Rat in Maze | Word Search | Subsets / Subset Sum | Permutations / Combinations | Sudoku Solver
+
+4️⃣ Dynamic Programming
+Patterns:
+Subsequence DP: LIS, LCS, Shortest Common Supersequence
+Interval DP: Matrix Chain Multiplication, Palindrome Partitioning, Burst Balloons
+Knapsack DP: 0/1, Unbounded, Target Sum
+Grid DP: Min Cost Path
+Stocks DP: Buy/Sell variations
+Must-Do: 0/1 Knapsack | Unbounded Knapsack | Target Sum | LIS / LCS | MCM | Palindrome Partition | Min Cost Path | DP on Stocks | Min Edit Distance
+
+
+5️⃣ Linked List
+Patterns: Two pointers, slow/fast pointer
+Must-Do: Reverse List | Detect Cycle | Merge Two Sorted | Remove Nth Node | Intersection
+
+6️⃣ Stack & Queue
+Patterns: Monotonic stack, sliding window
+Must-Do: Implement Stack/Queue | Next Greater/Smaller | Sliding Window Max | Evaluate RPN | Min Stack
+
+7️⃣ Trees / BST
+Patterns: DFS/BFS, recursion, divide & conquer
+Must-Do: Traversals | LCA | Serialize/Deserialize | Diameter | Max Path Sum | Check Balanced | Kth Smallest/Largest BST | Build Tree from Inorder + Pre/Post
+
+8️⃣ Heap / Priority Queue
+Patterns: Top-K, sliding window
+Must-Do: Kth Largest/Smallest | Merge K Sorted | Sliding Window Median | Top K Frequent
+
+9️⃣ Graphs
+Patterns: BFS, DFS, shortest path, cycle detection, MST
+Must-Do: BFS/DFS | Detect Cycle | Dijkstra / Bellman-Ford | MST Prim/Kruskal | Topological Sort | Num of Islands | Word Ladder
+
+🔟 Hashing / Maps / Sets
+Patterns: Frequency maps, two pointers + hash, subarray sums
+Must-Do: Two Sum / Subarray Sum | Count Distinct | Top K Elements | Subarray with 0 Sum
+
+1️⃣1️⃣ Advanced / Misc
+Patterns: Range queries, union-find, binary search variations
+Must-Do: Union-Find / Disjoint Set | Segment Trees (Range Sum / Min / Max) | Fenwick Tree | Binary Search Variants | Sliding Window Problems
+
+🔥 Last-Minute Tips
+Focus Arrays → Strings → Recursion → Trees → DP first.
+For DP, always identify pattern: subsequence / interval / knapsack / grid / stocks.
+Use dry runs for recursion & DP problems.
+For graphs, remember BFS for shortest path unweighted, DFS for cycles/components.
+Keep STL cheat sheet ready: vector, set, map, unordered_map, priority_queue, stack, queue.
