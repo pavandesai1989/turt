@@ -1,1 +1,116 @@
 https://leetcode.com/problems/coin-change/description/
+
+class Solution {
+public:
+    int helper(int idx,vector<int>& coins, int amount)
+    {
+       if(idx<0) return 1e9;
+       if(amount==0) return 0;
+       if(idx==0)
+       {
+           if(amount%coins[0] == 0)
+           {
+             return amount/coins[idx];
+           }
+           else
+           {
+            return 1e9;
+           }          
+       }
+       int take=1e9;
+       if(coins[idx]<=amount)
+       {
+          take = 1 + helper(idx,coins,amount-coins[idx]);
+       }
+
+       int nottake = helper(idx-1,coins,amount);
+
+       return min(take,nottake);
+    }
+    int coinChange(vector<int>& coins, int amount) 
+    {
+        int n=coins.size();
+        int val = helper(n-1,coins,amount);
+
+        if(val == 1e9) return -1;
+        else return val;
+    }
+};
+Time Complexity
+
+Your answer: O(2ⁿ) ❌
+
+✅ Correct:
+
+O(2ⁿ × amount) (exponential)
+
+Why?
+
+At each state:
+
+You have 2 choices → take / not take
+BUT when you take, you stay at same index → depends on amount
+
+So recursion depends on:
+
+n (coins)
+amount
+
+👉 More accurate way to say in interview:
+
+“Time complexity is exponential due to overlapping subproblems, roughly O(2ⁿ × amount)”
+
+(Some people just say exponential, which is acceptable)
+
+🧠 Space Complexity
+
+Your answer: O(n) ❌
+
+✅ Correct:
+
+O(amount)
+
+Why?
+Recursion depth is mainly driven by amount
+In worst case:
+You keep taking same coin (e.g., coin = 1)
+Depth becomes ≈ amount
+
+class Solution {
+public:
+    int helper(int idx,vector<int>& coins, int amount,vector<vector<int>>& dp)
+    {
+       if(idx<0) return 1e9;
+       if(amount==0) return dp[idx][amount]=0;
+       if(idx==0)
+       {
+           if(amount%coins[0] == 0)
+           {
+             return dp[idx][amount]=amount/coins[idx];
+           }
+           else
+           {
+            return dp[idx][amount]=1e9;
+           }          
+       }
+       if(dp[idx][amount] != -1) return dp[idx][amount];
+       int take=1e9;
+       if(coins[idx]<=amount)
+       {
+          take = 1 + helper(idx,coins,amount-coins[idx],dp);
+       }
+
+       int nottake = helper(idx-1,coins,amount,dp);
+
+       return dp[idx][amount]=min(take,nottake);
+    }
+    int coinChange(vector<int>& coins, int amount) 
+    {
+        int n=coins.size();
+        vector<vector<int>> dp(n,vector<int>(amount+1,-1));
+        int val = helper(n-1,coins,amount,dp);     
+
+        if(val == 1e9) return -1;
+        else return val;
+    }
+};
