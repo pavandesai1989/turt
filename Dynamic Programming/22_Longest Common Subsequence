@@ -1,1 +1,56 @@
 https://leetcode.com/problems/longest-common-subsequence/description/
+
+
+class Solution {
+public:
+    int helper(int idx1,int idx2,string text1, string text2,int l1,int l2)
+    {
+       if(idx1<0 || idx2<0) return 0;
+       
+       if(text1[idx1]==text2[idx2])
+       {
+          return 1 + helper(idx1-1,idx2-1,text1,text2,l1,l2);
+       }
+
+       return max(helper(idx1-1,idx2,text1,text2,l1,l2),helper(idx1,idx2-1,text1,text2,l1,l2));
+    }
+    int longestCommonSubsequence(string text1, string text2) 
+    {
+        int l1=text1.length();
+        int l2=text2.length();
+
+        return helper(l1-1,l2-1,text1,text2,l1,l2);
+    }
+};
+
+✅ Final Interview Answer
+
+👉 Time: Exponential
+👉 Space: O(l1 + l2)
+
+class Solution {
+public:
+    int helper(int idx1,int idx2,string& text1, string& text2,int l1,int l2,vector<vector<int>>& dp)
+    {
+       if(idx1<0 || idx2<0) return 0;
+       if(dp[idx1][idx2] != -1) return dp[idx1][idx2];
+       
+       if(text1[idx1]==text2[idx2])
+       {
+          return dp[idx1][idx2] = 1 + helper(idx1-1,idx2-1,text1,text2,l1,l2,dp);
+       }
+
+       return dp[idx1][idx2] = max(helper(idx1-1,idx2,text1,text2,l1,l2,dp),
+                                    helper(idx1,idx2-1,text1,text2,l1,l2,dp));
+    }
+    int longestCommonSubsequence(string text1, string text2) 
+    {
+        int l1=text1.length();
+        int l2=text2.length();
+        
+        vector<vector<int>> dp(l1,vector<int>(l2,-1));
+        return helper(l1-1,l2-1,text1,text2,l1,l2,dp);
+    }
+};
+****imp pass string by ref else TLE***********
+
