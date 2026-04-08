@@ -1,17 +1,54 @@
-********* 2 pointers ***********
-Valid Palindrome
-Two Sum II
-3Sum
-4Sum
-Container With Most Water
-Trapping Rain Water
+# MINIMAL DSA LIST – ALL PATTERNS (35 Problems)
 
-**********sliding window*******
-Best Time to Buy And Sell Stock
-Longest Substring Without Repeating Characters
-Longest Repeating Character Replacement
-Permutation In String
-Minimum Window Substring
-Sliding Window Maximum
-Subarray Sum Equals K
-Longest Subarray with Sum K (positive integers)
+## ARRAYS & HASHING
+1. Two Sum — https://leetcode.com/problems/two-sum/ — Hash Map
+2. Longest Consecutive Sequence — https://leetcode.com/problems/longest-consecutive-sequence/ — Hash Set
+3. Product of Array Except Self — https://leetcode.com/problems/product-of-array-except-self/ — Prefix/Suffix
+4. Subarray Sum Equals K — https://leetcode.com/problems/subarray-sum-equals-k/ — Prefix Sum + Hash
+5. Contains Duplicate — https://leetcode.com/problems/contains-duplicate/ — Set
+
+## TWO POINTERS / SLIDING WINDOW
+6. 3Sum — https://leetcode.com/problems/3sum/ — Two Pointers
+7. Container With Most Water — https://leetcode.com/problems/container-with-most-water/ — Two Pointers
+8. Longest Substring Without Repeating Characters — https://leetcode.com/problems/longest-substring-without-repeating-characters/ — Sliding Window
+9. Minimum Window Substring — https://leetcode.com/problems/minimum-window-substring/ — Sliding Window
+10. Trapping Rain Water — https://leetcode.com/problems/trapping-rain-water/ — Two Pointers / Monotonic Stack
+
+## STRINGS
+11. Valid Anagram — https://leetcode.com/problems/valid-anagram/ — Frequency Map
+12. Longest Palindromic Substring — https://leetcode.com/problems/longest-palindromic-substring/ — Center / DP
+13. Palindromic Substrings — https://leetcode.com/problems/palindromic-substrings/ — DP
+
+## LINKED LIST
+14. Reverse Linked List — https://leetcode.com/problems/reverse-linked-list/ — Pointer Manipulation
+15. Linked List Cycle — https://leetcode.com/problems/linked-list-cycle/ — Fast/Slow Pointers
+16. Merge Two Sorted Lists — https://leetcode.com/problems/merge-two-sorted-lists/ — Merge Pointers
+17. Remove Nth Node From End — https://leetcode.com/problems/remove-nth-node-from-end-of-list/ — Two Pointers
+
+## TREES / BST
+18. Maximum Depth of Binary Tree — https://leetcode.com/problems/maximum-depth-of-binary-tree/ — DFS
+19. Diameter of Binary Tree — https://leetcode.com/problems/diameter-of-binary-tree/ — DFS + Max Tracking
+20. Binary Tree Level Order Traversal — https://leetcode.com/problems/binary-tree-level-order-traversal/ — BFS
+21. Validate Binary Search Tree — https://leetcode.com/problems/validate-binary-search-tree/ — DFS + Range Check
+
+## GRAPHS
+22. Number of Islands — https://leetcode.com/problems/number-of-islands/ — DFS/BFS on Grid
+23. Course Schedule — https://leetcode.com/problems/course-schedule/ — Topo Sort / Cycle Detection
+24. Rotting Oranges — https://leetcode.com/problems/rotting-oranges/ — BFS Level by Level
+25. Alien Dictionary — https://leetcode.com/problems/alien-dictionary/ — Graph + Topo Sort
+
+## DYNAMIC PROGRAMMING
+26. Climbing Stairs — https://leetcode.com/problems/climbing-stairs/ — 1D DP
+27. House Robber — https://leetcode.com/problems/house-robber/ — 1D DP
+28. Coin Change — https://leetcode.com/problems/coin-change/ — 1D DP
+29. Longest Increasing Subsequence — https://leetcode.com/problems/longest-increasing-subsequence/ — DP / Binary Search
+30. Edit Distance — https://leetcode.com/problems/edit-distance/ — 2D DP
+
+## HEAPS / DESIGN
+31. Merge K Sorted Lists — https://leetcode.com/problems/merge-k-sorted-lists/ — Min-Heap
+32. Find Median from Data Stream — https://leetcode.com/problems/find-median-from-data-stream/ — Two Heaps
+33. LRU Cache — https://leetcode.com/problems/lru-cache/ — Design (Hash Map + DLL)
+
+## BACKTRACKING / TRIES
+34. Combination Sum — https://leetcode.com/problems/combination-sum/ — Backtracking
+35. Implement Trie (Prefix Tree) — https://leetcode.com/problems/implement-trie-prefix-tree/ — Trie + Recursion
