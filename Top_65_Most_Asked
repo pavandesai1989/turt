@@ -1,0 +1,93 @@
+🚀 FINAL DSA LIST (65 MUST-DO QUESTIONS)
+
+🟢 ARRAYS & HASHING
+
+1. Two Sum
+2. Contains Duplicate
+3. Valid Anagram
+4. Group Anagrams
+5. Top K Frequent Elements
+6. Product of Array Except Self
+7. Longest Consecutive Sequence
+8. Subarray Sum Equals K
+9. Maximum Subarray (Kadane’s)
+10. Majority Element
+11. Missing Number
+12. Set Matrix Zeroes
+13. Valid Sudoku
+
+🟡 TWO POINTERS & SLIDING WINDOW
+14. Valid Palindrome
+15. 3Sum
+16. Container With Most Water
+17. Two Sum II (Sorted)
+18. Best Time to Buy and Sell Stock
+19. Longest Substring Without Repeating Characters
+20. Longest Repeating Character Replacement
+21. Minimum Window Substring
+22. Find All Anagrams in a String
+23. Trapping Rain Water
+
+🔵 STACKS & LINKED LISTS
+24. Valid Parentheses
+25. Min Stack
+26. Daily Temperatures
+27. Largest Rectangle in Histogram
+28. Generate Parentheses
+29. Reverse Linked List
+30. Merge Two Sorted Lists
+31. Linked List Cycle
+32. Remove Nth Node From End
+33. Reorder List
+34. Add Two Numbers
+
+🟠 TREES & BST
+35. Invert Binary Tree
+36. Maximum Depth of Binary Tree
+37. Diameter of Binary Tree
+38. Balanced Binary Tree
+39. Binary Tree Level Order Traversal
+40. Lowest Common Ancestor (LCA)
+41. Validate Binary Search Tree
+42. Kth Smallest Element in BST
+43. Binary Tree Maximum Path Sum
+
+🟣 TRIES & BACKTRACKING
+44. Implement Trie (Prefix Tree)
+45. Word Search II
+46. Combination Sum
+
+🔴 GRAPHS
+47. Number of Islands
+48. Clone Graph
+49. Max Area of Island
+50. Pacific Atlantic Water Flow
+51. Course Schedule
+52. Rotting Oranges
+53. Alien Dictionary
+
+🧠 DYNAMIC PROGRAMMING
+54. Climbing Stairs
+55. House Robber
+56. Coin Change
+57. Longest Increasing Subsequence
+58. Edit Distance
+
+⚙️ HEAPS / DESIGN
+59. Merge K Sorted Lists
+60. Find Median from Data Stream
+61. LRU Cache
+
+📊 BINARY SEARCH
+62. Binary Search
+63. Search in Rotated Sorted Array
+64. Find Minimum in Rotated Sorted Array
+65. Koko Eating Bananas
+
+---
+
+✅ HOW TO USE:
+
+* Solve 4–5/day → finish in ~2 weeks
+* Revise once → then go to Top 100
+* Focus on PATTERNS, not memorizing solutions
